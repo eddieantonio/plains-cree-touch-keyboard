@@ -73,33 +73,12 @@ class Key:
         return self.proportional_width * KEY_WIDTH + padding
 
 
-class SpaceKey(Key):
-    proportional_width = 4
-
-    @classmethod
-    def label_matches(cls, tag):
-        return tag == 'SP'
-
-    def dictionary_for_mode(self, mode):
-        assert mode in ('V', 'CV', 'CwV')
-        return dict(id="K_SPACE", text="", width=self.effective_width)
-
 
 class VowelKey(Key):
     @classmethod
     def label_matches(cls, tag):
         return tag in VOWELS
 
-
-class NNBSPKey(Key):
-    proportional_width = 2
-
-    @classmethod
-    def label_matches(cls, tag):
-        return tag == 'NNBSP'
-
-    def dictionary_for_mode(self, mode):
-        return dict(id="U_202F", text="", width=self.effective_width)
 
 
 class PeriodKey(Key):
@@ -125,19 +104,36 @@ class PeriodKey(Key):
 
 
 class SpecialKey(Key):
+    SETTINGS = {
+        'SP': dict(id='K_SPACE', text="", width=4),
+        'BS': dict(id="K_BKSP",  text="*BkSp*"),
+        '123': dict(id="K_NUMLOCK", text="*123*"),
+        'NNBSP': dict(id="U_202F", text="", width=2),
+        'ABC': dict(id="K_UPPER", text="*ABC*"),  # TODO: make alpha layout
+        'CR': dict(id="K_ENTER", text="*Enter*"),
+        'INT': dict(id="K_LOPT", text="*Menu*"),
+    }
+
+    def dictionary_for_mode(self, mode):
+        assert mode in ('V', 'CV', 'CwV')
+        settings = self.SETTINGS[self.label]
+        return dict(id=settings['id'],
+                    text=settings['text'],
+                    width=self.effective_width)
+
+    @property
+    def proportional_width(self):
+        return self.SETTINGS[self.label].get('width', 1)
+
     @classmethod
     def label_matches(cls, tag):
-        return tag == tag.upper()
+        return tag in cls.SETTINGS
 
 
 class CombiningConsonantKey(Key):
     @classmethod
     def label_matches(cls, tag):
         return tag in COMBINING_CONSONANTS
-
-    def dictionary_for_mode(self, mode):
-        assert mode in ('V', 'CV', 'CwV')
-        return dict(id=0, text='ᕽ')
 
 
 # parse keyboard into a series of abstract rows.
@@ -147,7 +143,7 @@ for raw_keys in raw_rows:
     row = []
     for match in re.finditer(r'''\[\s*(\w+)\s*\]''', raw_keys):
         label = match.group(1)
-        for cls in (CombiningConsonantKey, VowelKey, PeriodKey, NNBSPKey, SpaceKey, SpecialKey, Key):
+        for cls in (CombiningConsonantKey, VowelKey, PeriodKey, SpecialKey, Key):
             if cls.label_matches(label):
                 break
         key = cls(label)
@@ -165,7 +161,7 @@ for mode in 'V':
         })
     layers.append(dict(id="default", row=layout_rows))
 
-show_json = False
+show_json = True
 if show_json:
     json.dump({
         "phone": {
