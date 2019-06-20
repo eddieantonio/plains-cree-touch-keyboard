@@ -14,7 +14,7 @@ layout = """
 [ 123 ] [ MENU ] [         SP          ] [ . ] [ CR ]
 """
 
-COMBINING_CONSONANTS = 'ptkcmny'
+COMBINING_CONSONANTS = 'ptkcmnsy'
 VOWELS = 'êiîoôaâ'
 
 KEY_WIDTH = 150
@@ -37,16 +37,6 @@ class Syllabic(NamedTuple):
                    scalar_value=int(row['scalar.value']))
 
 
-syllabics = {}
-
-with open('./syllabics.tsv') as syllabics_file:
-    syllabics_tsv = csv.DictReader(syllabics_file, delimiter="\t")
-    for row in syllabics_tsv:
-        syllabic = Syllabic.from_tsv(row)
-        assert syllabic.sro not in syllabics
-        syllabics[syllabic.sro] = syllabic
-
-
 class Key:
     proportional_width = 1
 
@@ -57,11 +47,14 @@ class Key:
     def label_matches(cls, tag):
         return True
 
-    def dictionary_for_mode(self, mode):
-        assert mode in ('V', 'CV', 'CwV')
+    def dictionary_for_key(self):
         syllabic = syllabics[self.label]
         return dict(id=syllabic.key_code,
                     text=syllabic.cans)
+
+    def dictionary_for_key_with_mode(self, mode, consonant):
+        assert mode in ('V', 'CV', 'CwV')
+        return self.dictionary_for_key()
 
     def __repr__(self):
         cls = type(self).__name__
@@ -73,12 +66,12 @@ class Key:
         return self.proportional_width * KEY_WIDTH + padding
 
 
-
 class VowelKey(Key):
     @classmethod
     def label_matches(cls, tag):
         return tag in VOWELS
 
+    # TODO: custom dictionary_for_key_with_mode
 
 
 class PeriodKey(Key):
@@ -86,7 +79,7 @@ class PeriodKey(Key):
     def label_matches(cls, tag):
         return tag == '.'
 
-    def dictionary_for_mode(self, mode):
+    def dictionary_for_key(self):
         return {
             "id": "U_166E",
             "text": "᙮",
@@ -114,8 +107,7 @@ class SpecialKey(Key):
         "MENU": dict(id="K_LOPT", text="*Menu*"),
     }
 
-    def dictionary_for_mode(self, mode):
-        assert mode in ('V', 'CV', 'CwV')
+    def dictionary_for_key(self):
         settings = self.SETTINGS[self.label]
         return dict(id=settings['id'],
                     text=settings['text'],
@@ -135,6 +127,27 @@ class CombiningConsonantKey(Key):
     def label_matches(cls, tag):
         return tag in COMBINING_CONSONANTS
 
+    @property
+    def consonant(self):
+        return self.label[0]
+
+    def dictionary_for_key(self):
+        obj = super().dictionary_for_key()
+        obj.update(nextlayer=self.consonant + 'V')
+        return obj
+
+
+#################################### Main ####################################
+
+syllabics = {}
+
+with open('./syllabics.tsv') as syllabics_file:
+    syllabics_tsv = csv.DictReader(syllabics_file, delimiter="\t")
+    for row in syllabics_tsv:
+        syllabic = Syllabic.from_tsv(row)
+        assert syllabic.sro not in syllabics
+        syllabics[syllabic.sro] = syllabic
+
 
 # parse keyboard into a series of abstract rows.
 raw_rows = layout.strip().split("\n")
@@ -152,14 +165,16 @@ for raw_keys in raw_rows:
 
 # Create the JSON
 layers = []
-for mode in 'V':
-    layout_rows = []
-    for rowid, row in enumerate(keyboard, start=1):
-        layout_rows.append({
-            "id": rowid,
-            "key": [key.dictionary_for_mode(mode) for key in row]
-        })
-    layers.append(dict(id="default", row=layout_rows))
+for consonant in  ('',) + tuple(COMBINING_CONSONANTS):
+    for mode in ('V', 'CV', 'CwV'):
+        layout_rows = []
+        for rowid, row in enumerate(keyboard, start=1):
+            layout_rows.append({
+                "id": rowid,
+                "key": [key.dictionary_for_key_with_mode(mode, consonant) for key in row]
+            })
+        # TODO: layer based on the current pattern
+        layers.append(dict(id="default", row=layout_rows))
 
 show_json = True
 if show_json:
@@ -170,6 +185,7 @@ if show_json:
             "displayUnderlying": False
         }
     }, sys.stdout, indent=2, ensure_ascii=False)
+    print()
 else:
     from pprint import pprint
     pprint(syllabics)
