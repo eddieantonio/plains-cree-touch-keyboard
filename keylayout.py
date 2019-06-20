@@ -8,10 +8,10 @@ import sys
 from typing import NamedTuple
 
 layout = """
-[ s ] [ w ] [ m ] [ l ] [ r ] [ â ] [ i ] [ î ]
-[ hk] [ t ] [ k ] [ h ] [ p ] [ a ] [ o ] [ c ]
-[ABC] [ y ] [ n ] [  NNBSP  ] [ ê ] [ ô ] [ BS]
-[123] [INT] [         SP          ] [ . ] [ CR]
+[  s  ] [   w  ] [ m ] [ l ] [ r ] [ â ] [ i ] [  î ]
+[  hk ] [   t  ] [ k ] [ h ] [ p ] [ a ] [ o ] [  c ]
+[ ABC ] [   y  ] [ n ] [  NNBSP  ] [ ê ] [ ô ] [ BS ]
+[ 123 ] [ MENU ] [         SP          ] [ . ] [ CR ]
 """
 
 COMBINING_CONSONANTS = 'ptkcmny'
@@ -105,13 +105,13 @@ class PeriodKey(Key):
 
 class SpecialKey(Key):
     SETTINGS = {
-        'SP': dict(id='K_SPACE', text="", width=4),
-        'BS': dict(id="K_BKSP",  text="*BkSp*"),
-        '123': dict(id="K_NUMLOCK", text="*123*"),
-        'NNBSP': dict(id="U_202F", text="", width=2),
-        'ABC': dict(id="K_UPPER", text="*ABC*"),  # TODO: make alpha layout
-        'CR': dict(id="K_ENTER", text="*Enter*"),
-        'INT': dict(id="K_LOPT", text="*Menu*"),
+        "SP": dict(id='K_SPACE', text="", width=4),
+        "BS": dict(id="K_BKSP",  text="*BkSp*"),
+        "123": dict(id="K_NUMLOCK", text="*123*"),
+        "NNBSP": dict(id="U_202F", text="", width=2),
+        "ABC": dict(id="K_UPPER", text="*ABC*"),  # TODO: make alpha layout
+        "CR": dict(id="K_ENTER", text="*Enter*"),
+        "MENU": dict(id="K_LOPT", text="*Menu*"),
     }
 
     def dictionary_for_mode(self, mode):
