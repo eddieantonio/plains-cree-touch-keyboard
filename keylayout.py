@@ -20,6 +20,12 @@ VOWELS = 'êiîoôaâ'
 KEY_WIDTH = 150
 PADDING_BETWEEN = 3
 
+# Key types
+# https://help.keyman.com/developer/10.0/guides/develop/creating-a-touch-keyboard-layout-for-amharic-the-nitty-gritty#id488808
+SPECIAL_KEY = 1  # TODO: for vowels?
+ACTIVE_KEY = 2  # TODO: for active consonant?
+SPACER = 10
+
 
 class Syllabic(NamedTuple):
     cans: str
@@ -53,7 +59,7 @@ class Key:
                     text=syllabic.cans)
 
     def dictionary_for_key_with_mode(self, mode, consonant):
-        assert mode in ('V', 'CV', 'CwV')
+        assert mode in ('CV', 'CwV')
         return self.dictionary_for_key()
 
     def __repr__(self):
@@ -71,7 +77,20 @@ class VowelKey(Key):
     def label_matches(cls, tag):
         return tag in VOWELS
 
-    # TODO: custom dictionary_for_key_with_mode
+    def dictionary_for_key_with_mode(self, mode, consonant):
+        sro = mode.replace('C', consonant).replace('V', self.label)
+        try:
+            syllabic = syllabics[sro]
+        except KeyError:
+            # nw exceptional cases. Place a spacer here
+            assert sro.startswith('nw')
+            return dict(id="K_ESC",  # Dunno what code to output 🤷
+                        type=SPACER,
+                        width=self.effective_width)
+        else:
+            return dict(id=syllabic.key_code,
+                        text=syllabic.cans,
+                        nextlayer="default")
 
 
 class PeriodKey(Key):
@@ -165,16 +184,17 @@ for raw_keys in raw_rows:
 
 # Create the JSON
 layers = []
-for consonant in  ('',) + tuple(COMBINING_CONSONANTS):
-    for mode in ('V', 'CV', 'CwV'):
+for consonant in  ('', *COMBINING_CONSONANTS):
+    for mode in ('CV', 'CwV'):
+        layer_id = ('default' if consonant == '' and mode == 'CV'
+                              else mode.replace('C', consonant))
         layout_rows = []
         for rowid, row in enumerate(keyboard, start=1):
             layout_rows.append({
                 "id": rowid,
                 "key": [key.dictionary_for_key_with_mode(mode, consonant) for key in row]
             })
-        # TODO: layer based on the current pattern
-        layers.append(dict(id="default", row=layout_rows))
+        layers.append(dict(id=layer_id, row=layout_rows))
 
 show_json = True
 if show_json:
