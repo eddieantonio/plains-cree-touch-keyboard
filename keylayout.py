@@ -22,9 +22,9 @@ PADDING_BETWEEN = 3
 
 # Key types
 # https://help.keyman.com/developer/10.0/guides/develop/creating-a-touch-keyboard-layout-for-amharic-the-nitty-gritty#id488808
-SPECIAL_KEY = 1  # TODO: for vowels?
-ACTIVE_KEY = 2  # TODO: for active consonant?
-SPACER = 10
+SPECIAL_KEY = "1"  # TODO: for vowels?
+ACTIVE_KEY = "2"  # TODO: for active consonant?
+SPACER = "10"
 
 
 class Syllabic(NamedTuple):
@@ -56,7 +56,8 @@ class Key:
     def dictionary_for_key(self):
         syllabic = syllabics[self.label]
         return dict(id=syllabic.key_code,
-                    text=syllabic.cans)
+                    text=syllabic.cans,
+                    width=self.effective_width)
 
     def dictionary_for_key_with_mode(self, mode, consonant):
         assert mode in ('CV', 'CwV')
@@ -85,7 +86,7 @@ class VowelKey(Key):
             # nw exceptional cases. Place a spacer here
             assert sro.startswith('nw')
             return dict(id="K_ESC",  # Dunno what code to output 🤷
-                        type=SPACER,
+                        sp=SPACER,
                         width=self.effective_width)
         else:
             return dict(id=syllabic.key_code,
@@ -117,20 +118,26 @@ class PeriodKey(Key):
 
 class SpecialKey(Key):
     SETTINGS = {
-        "SP": dict(id='K_SPACE', text="", width=4),
-        "BS": dict(id="K_BKSP",  text="*BkSp*"),
-        "123": dict(id="K_NUMLOCK", text="*123*"),
-        "NNBSP": dict(id="U_202F", text="", width=2),
-        "ABC": dict(id="K_UPPER", text="*ABC*"),  # TODO: make alpha layout
-        "CR": dict(id="K_ENTER", text="*Enter*"),
-        "MENU": dict(id="K_LOPT", text="*Menu*"),
+        "SP": dict(id='K_SPACE', text="", width=4, nextlayer="default", sp="0"),
+        "BS": dict(id="K_BKSP",  text="*BkSp*", nextlayer="default",
+                   sp=SPECIAL_KEY),
+        "123": dict(id="K_NUMLOCK", text="*123*", nextlayer="default",
+                    sp=SPECIAL_KEY),
+        "NNBSP": dict(id="U_202F", text="", width=2, nextlayer="default", sp="0"),
+        "ABC": dict(id="K_UPPER", text="*ABC*", nextlayer="default",
+                    sp=SPECIAL_KEY),  # TODO: make a latin layout
+        "CR": dict(id="K_ENTER", text="*Enter*", nextlayer="default",
+                   sp=SPECIAL_KEY),
+        "MENU": dict(id="K_LOPT", text="*Menu*", nextlayer="default",
+                     sp=SPECIAL_KEY),
     }
 
     def dictionary_for_key(self):
         settings = self.SETTINGS[self.label]
         return dict(id=settings['id'],
                     text=settings['text'],
-                    width=self.effective_width)
+                    width=self.effective_width,
+                    sp=settings["sp"])
 
     @property
     def proportional_width(self):
