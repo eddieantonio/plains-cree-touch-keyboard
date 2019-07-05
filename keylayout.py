@@ -7,7 +7,7 @@ import re
 import sys
 from typing import NamedTuple
 
-layout = """
+LAYOUT = """
 [  s  ] [  w   ] [ m ] [ l ] [ r ] [ â ] [ i ] [  î ]
 [  hk ] [  t   ] [ k ] [ h ] [ p ] [ a ] [ o ] [  c ]
 [ ABC ] [  y   ] [ n ] [  NNBSP  ] [ ê ] [ ô ] [ BS ]
@@ -180,23 +180,30 @@ def parse_syllabics():
     return syllabics
 
 
+def parse_ascii_layout(layout: str) -> list:
+    """
+    Parses the ASCII art keyboard into a list of rows, each row containing a
+    Key.
+    """
+    raw_rows = layout.strip().split("\n")
+    keyboard = []
+    for raw_keys in raw_rows:
+        row = []
+        for match in re.finditer(r'''\[\s*(\w+)\s*\]''', raw_keys):
+            label = match.group(1)
+            for cls in (CombiningConsonantKey, VowelKey, PeriodKey, SpecialKey, Key):
+                if cls.label_matches(label):
+                    break
+            key = cls(label)
+            row.append(key)
+        keyboard.append(row)
+    return keyboard
+
 #################################### Main ####################################
 
+# Parse the table of syllabics, as well as the keyboard layout.
 syllabics = parse_syllabics()
-
-# parse keyboard into a series of abstract rows.
-raw_rows = layout.strip().split("\n")
-keyboard = []
-for raw_keys in raw_rows:
-    row = []
-    for match in re.finditer(r'''\[\s*(\w+)\s*\]''', raw_keys):
-        label = match.group(1)
-        for cls in (CombiningConsonantKey, VowelKey, PeriodKey, SpecialKey, Key):
-            if cls.label_matches(label):
-                break
-        key = cls(label)
-        row.append(key)
-    keyboard.append(row)
+keyboard = parse_ascii_layout(LAYOUT)
 
 # Create the JSON
 layers = []
