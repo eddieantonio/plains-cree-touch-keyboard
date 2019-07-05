@@ -17,8 +17,10 @@ LAYOUT = """
 COMBINING_CONSONANTS = "ptkcmnsy"
 VOWELS = "êiîoôaâ"
 
-KEY_WIDTH = 150
-PADDING_BETWEEN = 3
+# For some reason, I decided each "slot" would be 15 units
+# There are 8 keys, giving a total width of 8 ⨉ 15 = 120 units.
+KEY_WIDTH = 15
+PADDING_BETWEEN = 0
 
 # Key types
 # https://help.keyman.com/developer/10.0/guides/develop/creating-a-touch-keyboard-layout-for-amharic-the-nitty-gritty#id488808
@@ -83,15 +85,18 @@ class VowelKey(Key):
         try:
             syllabic = SYLLABICS[sro]
         except KeyError:
-            # nw exceptional cases. Place a spacer here
+            # nwV exceptional cases. Place a spacer here instead.
             assert sro.startswith("nw")
             return dict(
-                id="K_ESC",  # Dunno what code to output 🤷
+                id="U_0000",  # Dunno what code to output 🤷
                 sp=SPACER,
                 width=self.effective_width,
             )
         else:
-            return dict(id=syllabic.key_code, text=syllabic.cans, nextlayer="default")
+            return dict(id=syllabic.key_code,
+                        text=syllabic.cans,
+                        nextlayer="default",
+                        width=self.effective_width)
 
 
 class PeriodKey(Key):
