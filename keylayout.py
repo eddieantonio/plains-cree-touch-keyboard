@@ -54,7 +54,7 @@ class Key:
         return True
 
     def dictionary_for_key(self):
-        syllabic = syllabics[self.label]
+        syllabic = SYLLABICS[self.label]
         return dict(
             id=syllabic.key_code, text=syllabic.cans, width=self.effective_width
         )
@@ -81,7 +81,7 @@ class VowelKey(Key):
     def dictionary_for_key_with_mode(self, mode, consonant):
         sro = mode.replace("C", consonant).replace("V", self.label)
         try:
-            syllabic = syllabics[sro]
+            syllabic = SYLLABICS[sro]
         except KeyError:
             # nw exceptional cases. Place a spacer here
             assert sro.startswith("nw")
@@ -215,27 +215,20 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
                     }
                 )
             layers.append(dict(id=layer_id, row=layout_rows))
-    return (
-        {"phone": {"font": "Euphemia", "layer": layers, "displayUnderlying": False}},
-    )
+
+    phone_layout = {"font": "Euphemia", "layer": layers, "displayUnderlying": False}
+    return {"phone": phone_layout}
+
+
+# Create a global lookup table that converts an SRO sequence to a syllabic.
+SYLLABICS = parse_syllabics()
 
 
 #################################### Main ####################################
+if __name__ == "__main__":
+    # Parse the table of syllabics, as well as the keyboard layout.
+    keyboard = parse_ascii_layout(LAYOUT)
 
-# Parse the table of syllabics, as well as the keyboard layout.
-syllabics = parse_syllabics()
-keyboard = parse_ascii_layout(LAYOUT)
-
-show_json = True
-if show_json:
-    json.dump(
-        create_keyman_touch_layout_json(keyboard),
-        sys.stdout,
-        indent=2,
-        ensure_ascii=False,
-    )
+    layout = create_keyman_touch_layout_json(keyboard)
+    json.dump(layout, sys.stdout, indent=2, ensure_ascii=False)
     print()
-else:
-    from pprint import pprint
-
-    pprint(syllabics)
