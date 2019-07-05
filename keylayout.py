@@ -8,9 +8,9 @@ import sys
 from typing import NamedTuple
 
 layout = """
-[  s  ] [   w  ] [ m ] [ l ] [ r ] [ â ] [ i ] [  î ]
-[  hk ] [   t  ] [ k ] [ h ] [ p ] [ a ] [ o ] [  c ]
-[ ABC ] [   y  ] [ n ] [  NNBSP  ] [ ê ] [ ô ] [ BS ]
+[  s  ] [  w   ] [ m ] [ l ] [ r ] [ â ] [ i ] [  î ]
+[  hk ] [  t   ] [ k ] [ h ] [ p ] [ a ] [ o ] [  c ]
+[ ABC ] [  y   ] [ n ] [  NNBSP  ] [ ê ] [ ô ] [ BS ]
 [ 123 ] [ MENU ] [         SP          ] [ . ] [ CR ]
 """
 
@@ -163,17 +163,26 @@ class CombiningConsonantKey(Key):
         return obj
 
 
+def parse_syllabics():
+    """
+    Parse the syllabics TSV file.
+
+    This file should be obtained at:
+    https://github.com/UAlbertaALTLab/nehiyawewin-syllabics/blob/master/syllabics.tsv
+    """
+    syllabics = {}
+    with open('./syllabics.tsv') as syllabics_file:
+        syllabics_tsv = csv.DictReader(syllabics_file, delimiter="\t")
+        for row in syllabics_tsv:
+            syllabic = Syllabic.from_tsv(row)
+            assert syllabic.sro not in syllabics
+            syllabics[syllabic.sro] = syllabic
+    return syllabics
+
+
 #################################### Main ####################################
 
-syllabics = {}
-
-with open('./syllabics.tsv') as syllabics_file:
-    syllabics_tsv = csv.DictReader(syllabics_file, delimiter="\t")
-    for row in syllabics_tsv:
-        syllabic = Syllabic.from_tsv(row)
-        assert syllabic.sro not in syllabics
-        syllabics[syllabic.sro] = syllabic
-
+syllabics = parse_syllabics()
 
 # parse keyboard into a series of abstract rows.
 raw_rows = layout.strip().split("\n")
