@@ -46,6 +46,9 @@ class Syllabic(NamedTuple):
 
 
 class Key:
+    """
+    Represents a generic key on the keyboard.
+    """
     proportional_width = 1
 
     def __init__(self, label):
@@ -76,6 +79,12 @@ class Key:
 
 
 class VowelKey(Key):
+    """
+    Represents a key on the keyboard for a vowel.
+
+    Vowel keys change after a consonant has been pressed or after a consonant
+    and a 'w' has been pressed.
+    """
     @classmethod
     def label_matches(cls, tag):
         return tag in VOWELS
@@ -93,13 +102,18 @@ class VowelKey(Key):
                 width=self.effective_width,
             )
         else:
-            return dict(id=syllabic.key_code,
-                        text=syllabic.cans,
-                        nextlayer="default",
-                        width=self.effective_width)
+            return dict(
+                id=syllabic.key_code,
+                text=syllabic.cans,
+                nextlayer="default",
+                width=self.effective_width,
+            )
 
 
 class PeriodKey(Key):
+    """
+    The period key, which has a pop-up for additional punctuation.
+    """
     @classmethod
     def label_matches(cls, tag):
         return tag == "."
@@ -113,6 +127,10 @@ class PeriodKey(Key):
 
 
 class SpecialKey(Key):
+    """
+    Any key that has special semantics.
+    """
+
     SETTINGS = {
         "SP": dict(id="K_SPACE", text="", width=4, nextlayer="default", sp="0"),
         "BS": dict(id="K_BKSP", text="*BkSp*", nextlayer="default", sp=SPECIAL_KEY),
@@ -144,6 +162,9 @@ class SpecialKey(Key):
 
 
 class CombiningConsonantKey(Key):
+    """
+    A consonant key that places the touch keyboard into a CV layer.
+    """
     @classmethod
     def label_matches(cls, tag):
         return tag in COMBINING_CONSONANTS
@@ -155,6 +176,37 @@ class CombiningConsonantKey(Key):
     def dictionary_for_key(self):
         obj = super().dictionary_for_key()
         obj.update(nextlayer=self.consonant + "V")
+        return obj
+
+
+class WKey(CombiningConsonantKey):
+    """
+    The W key. When in the 'default' layer, this acts like a regular
+    combining consonant.
+
+    However, when in a CV layer, this goes into a CwV layer.
+    """
+
+    @classmethod
+    def label_matches(cls, tag):
+        return tag == 'w'
+
+    @property
+    def consonant(self):
+        return 'w'
+
+    def dictionary_for_key_with_mode(self, mode, consonant):
+        obj = super().dictionary_for_key()
+        if not consonant and mode =='CV':
+            # Pressed 'w' key in default layout; act normal.
+            obj.update(nextlayer=f"default")
+        elif mode == 'CV':
+            # Assume we have pressed a consonant. Continue to CwV layer.
+            obj.update(nextlayer=f"{consonant}wV")
+        elif mode == 'CwV':
+            # ¯\_(ツ)_/¯
+            obj.update(nextlayer=f"default")
+
         return obj
 
 
@@ -186,7 +238,7 @@ def parse_ascii_layout(layout: str) -> list:
         row = []
         for match in re.finditer(r"""\[\s*(\w+)\s*\]""", raw_keys):
             label = match.group(1)
-            for cls in (CombiningConsonantKey, VowelKey, PeriodKey, SpecialKey, Key):
+            for cls in (WKey, CombiningConsonantKey, VowelKey, PeriodKey, SpecialKey, Key):
                 if cls.label_matches(label):
                     break
             key = cls(label)
