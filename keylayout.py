@@ -190,37 +190,46 @@ def parse_ascii_layout(layout: str) -> list:
     return keyboard
 
 
+def create_keyman_touch_layout_json(keyboard: list) -> dict:
+    """
+    Returns a JSON-serializable dictionary that describes a touch-layout for
+    phones in the format that KeymanWeb requires.
+    """
+    layers = []
+    for consonant in ("", *COMBINING_CONSONANTS):
+        for mode in ("CV", "CwV"):
+            layer_id = (
+                "default"
+                if consonant == "" and mode == "CV"
+                else mode.replace("C", consonant)
+            )
+            layout_rows = []
+            for rowid, row in enumerate(keyboard, start=1):
+                layout_rows.append(
+                    {
+                        "id": rowid,
+                        "key": [
+                            key.dictionary_for_key_with_mode(mode, consonant)
+                            for key in row
+                        ],
+                    }
+                )
+            layers.append(dict(id=layer_id, row=layout_rows))
+    return (
+        {"phone": {"font": "Euphemia", "layer": layers, "displayUnderlying": False}},
+    )
+
+
 #################################### Main ####################################
 
 # Parse the table of syllabics, as well as the keyboard layout.
 syllabics = parse_syllabics()
 keyboard = parse_ascii_layout(LAYOUT)
 
-# Create the JSON
-layers = []
-for consonant in ("", *COMBINING_CONSONANTS):
-    for mode in ("CV", "CwV"):
-        layer_id = (
-            "default"
-            if consonant == "" and mode == "CV"
-            else mode.replace("C", consonant)
-        )
-        layout_rows = []
-        for rowid, row in enumerate(keyboard, start=1):
-            layout_rows.append(
-                {
-                    "id": rowid,
-                    "key": [
-                        key.dictionary_for_key_with_mode(mode, consonant) for key in row
-                    ],
-                }
-            )
-        layers.append(dict(id=layer_id, row=layout_rows))
-
 show_json = True
 if show_json:
     json.dump(
-        {"phone": {"font": "Euphemia", "layer": layers, "displayUnderlying": False}},
+        create_keyman_touch_layout_json(keyboard),
         sys.stdout,
         indent=2,
         ensure_ascii=False,
