@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
-import csv
 import json
 import re
 import sys
-from typing import NamedTuple
+
+from syllabics import SYLLABICS
+
 
 LAYOUT = """
 [  s  ] [  w   ] [ m ] [ l ] [ r ] [ â ] [ i ] [  î ]
@@ -29,26 +30,11 @@ ACTIVE_KEY = "2"  # TODO: for active consonant?
 SPACER = "10"
 
 
-class Syllabic(NamedTuple):
-    cans: str
-    sro: str
-    scalar_value: int
-
-    @property
-    def key_code(self):
-        return f"U_{self.scalar_value:04X}"
-
-    @classmethod
-    def from_tsv(cls, row):
-        return cls(
-            cans=row["cans"], sro=row["latn"], scalar_value=int(row["scalar.value"])
-        )
-
-
 class Key:
     """
     Represents a generic key on the keyboard.
     """
+
     proportional_width = 1
 
     def __init__(self, label):
@@ -85,6 +71,7 @@ class VowelKey(Key):
     Vowel keys change after a consonant has been pressed or after a consonant
     and a 'w' has been pressed.
     """
+
     @classmethod
     def label_matches(cls, tag):
         return tag in VOWELS
@@ -114,6 +101,7 @@ class PeriodKey(Key):
     """
     The period key, which has a pop-up for additional punctuation.
     """
+
     @classmethod
     def label_matches(cls, tag):
         return tag == "."
@@ -165,6 +153,7 @@ class CombiningConsonantKey(Key):
     """
     A consonant key that places the touch keyboard into a CV layer.
     """
+
     @classmethod
     def label_matches(cls, tag):
         return tag in COMBINING_CONSONANTS
@@ -189,42 +178,25 @@ class WKey(CombiningConsonantKey):
 
     @classmethod
     def label_matches(cls, tag):
-        return tag == 'w'
+        return tag == "w"
 
     @property
     def consonant(self):
-        return 'w'
+        return "w"
 
     def dictionary_for_key_with_mode(self, mode, consonant):
         obj = super().dictionary_for_key()
-        if not consonant and mode =='CV':
+        if not consonant and mode == "CV":
             # Pressed 'w' key in default layout; act normal.
             obj.update(nextlayer=f"default")
-        elif mode == 'CV':
+        elif mode == "CV":
             # Assume we have pressed a consonant. Continue to CwV layer.
             obj.update(nextlayer=f"{consonant}wV")
-        elif mode == 'CwV':
+        elif mode == "CwV":
             # ¯\_(ツ)_/¯
             obj.update(nextlayer=f"default")
 
         return obj
-
-
-def parse_syllabics():
-    """
-    Parse the syllabics TSV file.
-
-    This file should be obtained at:
-    https://github.com/UAlbertaALTLab/nehiyawewin-syllabics/blob/master/syllabics.tsv
-    """
-    syllabics = {}
-    with open("./syllabics.tsv") as syllabics_file:
-        syllabics_tsv = csv.DictReader(syllabics_file, delimiter="\t")
-        for row in syllabics_tsv:
-            syllabic = Syllabic.from_tsv(row)
-            assert syllabic.sro not in syllabics
-            syllabics[syllabic.sro] = syllabic
-    return syllabics
 
 
 def parse_ascii_layout(layout: str) -> list:
@@ -238,7 +210,14 @@ def parse_ascii_layout(layout: str) -> list:
         row = []
         for match in re.finditer(r"""\[\s*(\w+)\s*\]""", raw_keys):
             label = match.group(1)
-            for cls in (WKey, CombiningConsonantKey, VowelKey, PeriodKey, SpecialKey, Key):
+            for cls in (
+                WKey,
+                CombiningConsonantKey,
+                VowelKey,
+                PeriodKey,
+                SpecialKey,
+                Key,
+            ):
                 if cls.label_matches(label):
                     break
             key = cls(label)
@@ -275,10 +254,6 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
 
     phone_layout = {"font": "Euphemia", "layer": layers, "displayUnderlying": False}
     return {"phone": phone_layout}
-
-
-# Create a global lookup table that converts an SRO sequence to a syllabic.
-SYLLABICS = parse_syllabics()
 
 
 #################################### Main ####################################
