@@ -6,6 +6,7 @@ A mapping between SRO syllables and syllabics.
 """
 
 import csv
+from types import MappingProxyType
 from typing import NamedTuple
 
 __all__ = ["SYLLABICS"]
@@ -49,4 +50,5 @@ def _parse_syllabics():
 
 
 # Create a global lookup table that converts an SRO sequence to a syllabic.
-SYLLABICS = _parse_syllabics()
+# Note: using MappingProxyType makes this table **read-only**.
+SYLLABICS = MappingProxyType(_parse_syllabics())
