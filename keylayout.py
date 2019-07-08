@@ -111,7 +111,7 @@ class PeriodKey(Key):
         return {
             "id": "U_166E",
             "text": "᙮",
-            "width": self.effective_width
+            "width": self.effective_width,
             "sk": [{"text": "!", "id": "U_0021"}, {"text": "?", "id": "U_0022"}],
         }
 
@@ -210,7 +210,7 @@ def parse_ascii_layout(layout: str) -> list:
     keyboard = []
     for raw_keys in raw_rows:
         row = []
-        for match in re.finditer(r"""\[\s*(\w+)\s*\]""", raw_keys):
+        for match in re.finditer(r"""\[\s*(\S+)\s*\]""", raw_keys):
             label = match.group(1)
             for cls in (
                 WKey,
