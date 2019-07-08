@@ -51,7 +51,7 @@ def _parse_syllabics():
     https://github.com/UAlbertaALTLab/nehiyawewin-syllabics/blob/master/syllabics.tsv
     """
     syllabics = {}
-    with open("./syllabics.tsv") as syllabics_file:
+    with open("./syllabics.tsv", encoding="UTF-8") as syllabics_file:
         syllabics_tsv = csv.DictReader(syllabics_file, delimiter="\t")
         for row in syllabics_tsv:
             syllabic = Syllabic.from_tsv(row)
