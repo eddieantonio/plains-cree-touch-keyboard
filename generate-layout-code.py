@@ -15,7 +15,6 @@ store(&VERSION) '10.0'
 store(&TARGETS) 'iphone androidphone mobile'
 store(&NAME) 'Plains Cree Syllabics Keyboard'
 store(&COPYRIGHT) 'Copyright © 2019 National Research Council Canada'
-store(&EthnologueCode) 'crk'
 store(&KEYBOARDVERSION) '0.1.0'
 store(&LAYOUTFILE) 'nrc_cr_cans.keyman-touch-layout'
 
