@@ -92,7 +92,7 @@ class VowelKey(Key):
             # nwV exceptional cases. Place a blank here instead.
             assert sro.startswith("nw")
             return dict(
-                id="U_0000",  # Dunno what code to output 🤷
+                id="",  # A blank code is valid, apparently?
                 sp=BLANK_KEY,
                 text="",
                 width=self.effective_width,
@@ -130,7 +130,7 @@ class SpecialKey(Key):
     """
 
     SETTINGS = {
-        "SP": dict(id="K_SPACE", text="", width=4, nextlayer="default", sp=NORMAL_KEY),
+        "SP": dict(id="K_SPACE", text=" ", width=4, nextlayer="default", sp=NORMAL_KEY),
         "BS": dict(id="K_BKSP", text="*BkSp*", nextlayer="default", sp=SPECIAL_KEY),
         "123": dict(id="K_NUMLOCK", text="*123*", nextlayer="default", sp=SPECIAL_KEY),
         "NNBSP": dict(
