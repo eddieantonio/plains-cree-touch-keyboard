@@ -5,6 +5,9 @@
 Generates the .kmn keyboard code for to make the touch layout work properly.
 """
 
+from syllabics import SYLLABICS
+from plains_cree_constants import COMBINING_CONSONANTS
+
 
 PREAMBLE = """
 store(&VERSION) '10.0'
@@ -22,4 +25,16 @@ group(main) using keys
 """.lstrip()
 
 
+def as_keycode(syllabic):
+    return f'[U_{syllabic.scalar_value:04X}]'
+
+
+def as_codepoint(syllabic):
+    return f'U+{syllabic.scalar_value:04X}]'
+
+
 print(PREAMBLE)
+
+for consonant in COMBINING_CONSONANTS:
+    final = SYLLABICS[consonant]
+    print("  +", as_keycode(final), ">", as_codepoint(final), f"layer('{consonant}V)'")
