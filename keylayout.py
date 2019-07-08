@@ -20,8 +20,9 @@ VOWELS = "êiîoôaâ"
 
 # For some reason, I decided each "slot" would be 15 units
 # There are 8 keys, giving a total width of 8 ⨉ 15 = 120 units.
-KEY_WIDTH = 15
-PADDING_BETWEEN = 0  # TODO: deal with default padding of 5...?
+SLOT_WIDTH = 15  # How much width each "slot" occupies
+PADDING_BETWEEN = 5  # How much of the slot is just the padding.
+KEY_WIDTH = SLOT_WIDTH - PADDING_BETWEEN  # How much of the slot is the key itself
 
 # Key types
 # https://help.keyman.com/developer/10.0/guides/develop/creating-a-touch-keyboard-layout-for-amharic-the-nitty-gritty#id488808
@@ -61,6 +62,12 @@ class Key:
 
     @property
     def effective_width(self):
+        """
+        The width of the key taking the proportional width and default padding
+        into account.
+
+        This EXCLUDES the current key's padding.
+        """
         padding = (self.proportional_width - 1) * PADDING_BETWEEN
         return self.proportional_width * KEY_WIDTH + padding
 
