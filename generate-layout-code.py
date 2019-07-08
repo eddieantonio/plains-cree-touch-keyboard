@@ -33,7 +33,20 @@ print(PREAMBLE)
 #   e.g. when [ ᐢ ] has been pressed, insert ᐢ and switch to 'sV' layer.
 for consonant in COMBINING_CONSONANTS:
     final = SYLLABICS[consonant]
-    print(f"  + {final.as_keycode} > {final.as_character} layer('{consonant}V')")
+    keycode = final.as_keycode
+    character = final.as_character
+    layer = f"'{consonant}V'"
+    # CV syllable:
+    print(f"  + [{keycode}] > {character} layer({layer})", end=" ")
+    print(f"\t\tc {final}")
+
+    # CwV syllable:
+    w = SYLLABICS["w"]
+    w_keycode = w.as_keycode
+    w_character = w.as_keycode
+    layer = f"'{consonant}wV'"
+    print(f"  {character} + [{w_keycode}] > {w_character} layer({layer})", end=" ")
+    print(f"\tc {final} {w}")
 
 print()
 
@@ -43,14 +56,20 @@ print()
 for sro, syllabic in SYLLABICS.items():
     if not sro.endswith((*VOWELS,)):
         continue
-    if not sro.startswith((*COMBINING_CONSONANTS,)):
+    if not sro.startswith((*COMBINING_CONSONANTS, "w")):
         continue
 
-    assert len(sro) in (2, 3)
-
     final = SYLLABICS[sro[0]]
-    context = final.as_character
     keycode = syllabic.as_keycode
     composed_syllable = syllabic.as_character
-    print(f"  {context} + {keycode} > {composed_syllable} layer('default')", end=" ")
-    print(f"c {final} + [ {syllabic} ] > {syllabic}")
+
+    if len(sro) == 2:
+        w = ""
+        context = final.as_character
+    else:
+        assert len(sro) == 3 and sro[1] == "w"
+        w = " ᐤ"
+        context = f"{final.as_character} {SYLLABICS['w'].as_character}"
+
+    print(f"  {context} + [{keycode}] > {composed_syllable} layer('default')", end=" ")
+    print(f"c {final}{w} + [ {syllabic} ] > {syllabic}")
