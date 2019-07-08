@@ -9,4 +9,7 @@ $(TOUCH_LAYOUT): ./generate-touch-layout.py syllabics.py syllabics.tsv plains_cr
 $(KEY_LAYOUT): ./generate-layout-code.py syllabics.py syllabics.tsv plains_cree_constants.py
 	./$< | tee $@ >/dev/null
 
-.PHONY: all
+format:
+	black $(wildcard *.py)
+
+.PHONY: all format

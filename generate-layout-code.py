@@ -52,6 +52,5 @@ for sro, syllabic in SYLLABICS.items():
     context = final.as_character
     keycode = syllabic.as_keycode
     composed_syllable = syllabic.as_character
-    print(f"  {context} + {keycode} > {composed_syllable} layer('default')",
-            end=" ")
+    print(f"  {context} + {keycode} > {composed_syllable} layer('default')", end=" ")
     print(f"c {final} + [ {syllabic} ] > {syllabic}")

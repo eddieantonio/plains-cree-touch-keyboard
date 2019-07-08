@@ -34,7 +34,7 @@ class Syllabic(NamedTuple):
 
     @property
     def as_character(self):
-        return f'U+{self.scalar_value:04X}'
+        return f"U+{self.scalar_value:04X}"
 
     @classmethod
     def from_tsv(cls, row):

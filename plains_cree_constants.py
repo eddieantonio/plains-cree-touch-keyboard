@@ -9,4 +9,3 @@ Constants regarding Plains Cree orthography
 COMBINING_CONSONANTS = "ptkcmnsy"
 # All the vowels
 VOWELS = "êiîoôaâ"
-
