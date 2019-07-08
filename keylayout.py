@@ -27,7 +27,7 @@ PADDING_BETWEEN = 0
 # https://help.keyman.com/developer/10.0/guides/develop/creating-a-touch-keyboard-layout-for-amharic-the-nitty-gritty#id488808
 SPECIAL_KEY = "1"  # TODO: for vowels?
 ACTIVE_KEY = "2"  # TODO: for active consonant?
-SPACER = "10"
+BLANK = "9"
 
 
 class Key:
@@ -81,11 +81,12 @@ class VowelKey(Key):
         try:
             syllabic = SYLLABICS[sro]
         except KeyError:
-            # nwV exceptional cases. Place a spacer here instead.
+            # nwV exceptional cases. Place a blank here instead.
             assert sro.startswith("nw")
             return dict(
                 id="U_0000",  # Dunno what code to output 🤷
-                sp=SPACER,
+                sp=BLANK,
+                text="",
                 width=self.effective_width,
             )
         else:
@@ -110,6 +111,7 @@ class PeriodKey(Key):
         return {
             "id": "U_166E",
             "text": "᙮",
+            "width": self.effective_width
             "sk": [{"text": "!", "id": "U_0021"}, {"text": "?", "id": "U_0022"}],
         }
 
