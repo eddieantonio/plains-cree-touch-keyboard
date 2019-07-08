@@ -32,28 +32,6 @@ group(main) using keys
 
 print(PREAMBLE)
 
-# Generate rules to switch the layout when a final is pressed.
-#   + [U_XXXX] > U+XXXX layer('cV')
-#   e.g. when [ ᐢ ] has been pressed, insert ᐢ and switch to 'sV' layer.
-for consonant in COMBINING_CONSONANTS:
-    final = SYLLABICS[consonant]
-    keycode = final.as_keycode
-    character = final.as_character
-    layer = f"'{consonant}V'"
-    # CV syllable:
-    print(f"  + [{keycode}] > {character} layer({layer})", end=" ")
-    print(f"\t\tc {final}")
-
-    # CwV syllable:
-    w = SYLLABICS["w"]
-    w_keycode = w.as_keycode
-    w_character = w.as_character
-    layer = f"'{consonant}wV'"
-    print(f"  {character} + [{w_keycode}] > {w_character} layer({layer})", end=" ")
-    print(f"\tc {final} {w}")
-
-print()
-
 # Generate rules that replace a final and a vowel with the composed syllabic
 #    U+XXXX + [U_YYYY] > U+YYYY layer('default')
 #   e.g. when [ ᐘ ] has been pressed following a ᐤ, insert ᐘ and switch to 'default' layer.
