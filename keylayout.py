@@ -21,13 +21,14 @@ VOWELS = "êiîoôaâ"
 # For some reason, I decided each "slot" would be 15 units
 # There are 8 keys, giving a total width of 8 ⨉ 15 = 120 units.
 KEY_WIDTH = 15
-PADDING_BETWEEN = 0
+PADDING_BETWEEN = 0  # TODO: deal with default padding of 5...?
 
 # Key types
 # https://help.keyman.com/developer/10.0/guides/develop/creating-a-touch-keyboard-layout-for-amharic-the-nitty-gritty#id488808
+NORMAL_KEY = "0"
 SPECIAL_KEY = "1"  # TODO: for vowels?
 ACTIVE_KEY = "2"  # TODO: for active consonant?
-BLANK = "9"
+BLANK_KEY = "9"
 
 
 class Key:
@@ -85,7 +86,7 @@ class VowelKey(Key):
             assert sro.startswith("nw")
             return dict(
                 id="U_0000",  # Dunno what code to output 🤷
-                sp=BLANK,
+                sp=BLANK_KEY,
                 text="",
                 width=self.effective_width,
             )
@@ -122,10 +123,12 @@ class SpecialKey(Key):
     """
 
     SETTINGS = {
-        "SP": dict(id="K_SPACE", text="", width=4, nextlayer="default", sp="0"),
+        "SP": dict(id="K_SPACE", text="", width=4, nextlayer="default", sp=NORMAL_KEY),
         "BS": dict(id="K_BKSP", text="*BkSp*", nextlayer="default", sp=SPECIAL_KEY),
         "123": dict(id="K_NUMLOCK", text="*123*", nextlayer="default", sp=SPECIAL_KEY),
-        "NNBSP": dict(id="U_202F", text="", width=2, nextlayer="default", sp="0"),
+        "NNBSP": dict(
+            id="U_202F", text="", width=2, nextlayer="default", sp=NORMAL_KEY
+        ),
         "ABC": dict(
             id="K_UPPER", text="*ABC*", nextlayer="default", sp=SPECIAL_KEY
         ),  # TODO: make a latin layout
