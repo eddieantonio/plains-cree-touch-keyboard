@@ -29,6 +29,9 @@ SPECIAL_KEY = "1"  # TODO: for vowels?
 ACTIVE_KEY = "2"  # TODO: for active consonant?
 BLANK_KEY = "9"
 
+ALWAYS_RETURN_TO_DEFAULT_LAYER = {
+    'hk', 'l', 'r', 'h'
+}
 
 class Key:
     """
@@ -43,11 +46,18 @@ class Key:
     @classmethod
     def label_matches(cls, tag):
         return True
+        
+    @property
+    def extra_attributes(self):
+        if self.label in ALWAYS_RETURN_TO_DEFAULT_LAYER:
+            return { "nextlayer": "default" }
+        return {}
 
     def dictionary_for_key(self):
         syllabic = SYLLABICS[self.label]
         return dict(
-            id=syllabic.key_code, text=syllabic.cans, width=self.effective_width
+            id=syllabic.key_code, text=syllabic.cans, width=self.effective_width,
+            **self.extra_attributes
         )
 
     def dictionary_for_key_with_mode(self, mode, consonant):
@@ -119,6 +129,7 @@ class PeriodKey(Key):
             "text": "᙮",
             "width": self.effective_width,
             "sk": [{"text": "!", "id": "U_0021"}, {"text": "?", "id": "U_0022"}],
+            "nextlayer": "default"
         }
 
 
@@ -148,6 +159,7 @@ class SpecialKey(Key):
             text=settings["text"],
             width=self.effective_width,
             sp=settings["sp"],
+            nextlayer=settings["nextlayer"]
         )
 
     @property
