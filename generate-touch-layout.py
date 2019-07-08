@@ -6,6 +6,7 @@ import re
 import sys
 
 from syllabics import SYLLABICS
+from plains_cree_constants import COMBINING_CONSONANTS, VOWELS
 
 
 LAYOUT = """
@@ -14,9 +15,6 @@ LAYOUT = """
 [ ABC ] [  y   ] [ n ] [  NNBSP  ] [ ê ] [ ô ] [ BS ]
 [ 123 ] [ MENU ] [         SP          ] [ . ] [ CR ]
 """
-
-COMBINING_CONSONANTS = "ptkcmnsy"
-VOWELS = "êiîoôaâ"
 
 # For some reason, I decided each "slot" would be 15 units
 # There are 8 keys, giving a total width of 8 ⨉ 15 = 120 units.
