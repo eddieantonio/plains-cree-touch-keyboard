@@ -128,7 +128,7 @@ class SpecialKey(Key):
     """
 
     SETTINGS = {
-        "SP": dict(id="K_SPACE", text=" ", width=4, nextlayer="default", sp=NORMAL_KEY),
+        "SP": dict(id="K_SPACE", text="", width=4, nextlayer="default", sp=NORMAL_KEY),
         "BS": dict(id="K_BKSP", text="*BkSp*", nextlayer="default", sp=SPECIAL_KEY),
         "123": dict(id="K_NUMLOCK", text="*123*", nextlayer="default", sp=SPECIAL_KEY),
         "NNBSP": dict(
@@ -197,8 +197,9 @@ class WKey(CombiningConsonantKey):
     def dictionary_for_key_with_mode(self, mode, consonant):
         obj = super().dictionary_for_key()
         if not consonant and mode == "CV":
-            # Pressed 'w' key in default layout; act normal.
-            obj.update(nextlayer=f"default")
+            # Pressed 'w' key in default layout.
+            # This means we want to enter wV syllables.
+            obj.update(nextlayer=f"wV")
         elif mode == "CV":
             # Assume we have pressed a consonant. Continue to CwV layer.
             obj.update(nextlayer=f"{consonant}wV")
@@ -268,6 +269,7 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
 
 #################################### Main ####################################
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="UTF-8")  # Workaround for Windows.
     # Parse the table of syllabics, as well as the keyboard layout.
     keyboard = parse_ascii_layout(LAYOUT)
 
