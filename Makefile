@@ -1,6 +1,8 @@
-all: layout.json
+TOUCH_LAYOUT = nrc_cr_cans.kmn.json
 
-layout.json: keylayout.py syllabics.tsv
-	./$< | tee layout.json >/dev/null
+all: $(TOUCH_LAYOUT)
+
+$(TOUCH_LAYOUT): keylayout.py syllabics.py syllabics.tsv
+	./$< | tee $@ >/dev/null
 
 .PHONY: all
