@@ -26,14 +26,6 @@ group(main) using keys
 """.strip()
 
 
-def as_keycode(syllabic):
-    return f'[U_{syllabic.scalar_value:04X}]'
-
-
-def as_character(syllabic):
-    return f'U+{syllabic.scalar_value:04X}'
-
-
 print(PREAMBLE)
 
 # Generate rules to switch the layout when a final is pressed.
@@ -41,7 +33,7 @@ print(PREAMBLE)
 #   e.g. when [ ᐢ ] has been pressed, insert ᐢ and switch to 'sV' layer.
 for consonant in COMBINING_CONSONANTS:
     final = SYLLABICS[consonant]
-    print("  +", as_keycode(final), ">", as_character(final), f"layer('{consonant}V')")
+    print(f"  + {final.as_keycode} > {final.as_character} layer('{consonant}V')")
 
 print()
 
@@ -56,9 +48,10 @@ for sro, syllabic in SYLLABICS.items():
 
     assert len(sro) in (2, 3)
 
-    consonant = sro[0]
-    context = as_character(SYLLABICS[consonant])
-    keycode = as_keycode(syllabic)
-    composed_syllable = as_character(syllabic)
-    print(f"  {context} + {keycode} > {composed_syllable} layer('default')
-    {syllabic."
+    final = SYLLABICS[sro[0]]
+    context = final.as_character
+    keycode = syllabic.as_keycode
+    composed_syllable = syllabic.as_character
+    print(f"  {context} + {keycode} > {composed_syllable} layer('default')",
+            end=" ")
+    print(f"c {final} + [ {syllabic} ] > {syllabic}")

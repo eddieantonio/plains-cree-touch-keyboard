@@ -21,9 +21,20 @@ class Syllabic(NamedTuple):
     sro: str
     scalar_value: int
 
+    def __str__(self) -> str:
+        return self.cans
+
     @property
     def key_code(self):
         return f"U_{self.scalar_value:04X}"
+
+    @property
+    def as_keycode(self):
+        return self.key_code
+
+    @property
+    def as_character(self):
+        return f'U+{self.scalar_value:04X}'
 
     @classmethod
     def from_tsv(cls, row):
