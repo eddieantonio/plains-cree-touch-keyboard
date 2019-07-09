@@ -257,23 +257,34 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
     """
     layers = []
     for consonant in ("", *COMBINING_CONSONANTS):
+        # Generate a layer for either CV or CwV combinations
         for mode in ("CV", "CwV"):
-            layer_id = (
-                "default"
-                if consonant == "" and mode == "CV"
-                else mode.replace("C", consonant)
-            )
+            # What is the name of this layer?
+            if consonant == "" and mode == "CV":
+                layer_id = "default"
+            else:
+                layer_id = mode.replace("C", consonant)
+
             layout_rows = []
             for rowid, row in enumerate(keyboard, start=1):
-                layout_rows.append(
-                    {
-                        "id": rowid,
-                        "key": [
-                            key.dictionary_for_key_with_mode(mode, consonant)
-                            for key in row
-                        ],
-                    }
-                )
+                # Generate the keys for this row!
+                keys = [
+                    key.dictionary_for_key_with_mode(mode, consonant) for key in row
+                ]
+
+                # Post-process the keys:
+                # Implement workarounds to make the layout render correctly
+                for index, key in enumerate(keys):
+                    assert "width" in key, "A key is missing its width property"
+                    # Bug 🐛 in KeymanWeb: width and pad MUST be strings 🙃
+                    # https://github.com/keymanapp/keyman/issues/119
+                    key["width"] = str(key["width"])
+
+                    if index > 0:
+                        key["pad"] = str(PADDING_BETWEEN)
+
+                layout_rows.append({"id": rowid, "key": keys})
+
             layers.append(dict(id=layer_id, row=layout_rows))
 
     phone_layout = {"font": "Euphemia", "layer": layers, "displayUnderlying": False}
