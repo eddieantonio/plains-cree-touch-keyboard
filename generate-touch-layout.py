@@ -10,9 +10,9 @@
 import json
 import re
 import sys
-
-from syllabics import SYLLABICS
+from ioutils import setup_output
 from plains_cree_constants import COMBINING_CONSONANTS, VOWELS
+from syllabics import SYLLABICS
 
 
 LAYOUT = """
@@ -299,9 +299,8 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
 
 #################################### Main ####################################
 if __name__ == "__main__":
-    sys.stdout.reconfigure(encoding="UTF-8")  # Workaround for Windows.
-    if len(sys.argv) == 2:
-        sys.stdout = open(sys.argv[1], "w", encoding="UTF-8")
+    # Setup output, either to stdout or
+    setup_output()
 
     # Parse the table of syllabics, as well as the keyboard layout.
     keyboard = parse_ascii_layout(LAYOUT)
