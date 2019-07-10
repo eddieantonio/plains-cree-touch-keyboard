@@ -25,7 +25,7 @@ LAYOUT = """
 # For some reason, I decided each "slot" would be 15 units
 # There are 8 keys, giving a total width of 8 ⨉ 15 = 120 units.
 SLOT_WIDTH = 15  # How much width each "slot" occupies
-PADDING_BETWEEN = 5  # How much of the slot is just the padding.
+PADDING_BETWEEN = 2  # How much of the slot is just the padding.
 KEY_WIDTH = SLOT_WIDTH - PADDING_BETWEEN  # How much of the slot is the key itself
 
 # Key types
