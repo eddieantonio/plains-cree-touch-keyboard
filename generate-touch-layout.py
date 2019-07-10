@@ -195,9 +195,14 @@ class CombiningConsonantKey(Key):
     def consonant(self):
         return self.label[0]
 
-    def dictionary_for_key(self):
+    def dictionary_for_key_with_mode(self, mode, consonant):
+        # Act like a normal key...
         obj = super().dictionary_for_key()
+        # Except switch to the consonant layer when needed
         obj.update(nextlayer=self.consonant + "V")
+        # If we're already in that layer, then hightlight this consonant
+        if consonant == self.consonant:
+            obj.update(sp=ACTIVE_KEY)
         return obj
 
 
@@ -228,7 +233,7 @@ class WKey(CombiningConsonantKey):
             obj.update(nextlayer=f"{consonant}wV")
         elif mode == "CwV":
             # ¯\_(ツ)_/¯
-            obj.update(nextlayer=f"default")
+            obj.update(nextlayer=f"default", sp=ACTIVE_KEY)
 
         return obj
 
