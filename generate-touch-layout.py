@@ -300,6 +300,9 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
 #################################### Main ####################################
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="UTF-8")  # Workaround for Windows.
+    if len(sys.argv) == 2:
+        sys.stdout = open(sys.argv[1], "w", encoding="UTF-8")
+
     # Parse the table of syllabics, as well as the keyboard layout.
     keyboard = parse_ascii_layout(LAYOUT)
 
