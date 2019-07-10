@@ -5,19 +5,32 @@ Plains Cree Touch Keyboard generator
 
 I've written code here that generates a `.keyman-touch-layout` JSON file
 and a `.kmn` Keyman programming language file, that, put together,
-create a keyboard for writing ᓀᐦᐃᔭᐘᓯᓇᐦᐃᑫᐏᐣ (Plains Cree syllabics).
+create a keyboard for writing ᒐᐦᑭᐯᐘᓯᓇᐦᐃᑫᐏᐣ (Plains Cree syllabics).
 
 More documentation coming soon!
+
 
 Requirements
 ------------
 
- * `make`
  * Python 3.7+
+ * (optional) `make`
  * (optional) [Black](https://github.com/python/black)
 
 The files can then be packaged in [Keyman
 Developer](https://keyman.com/developer/).
+
+
+Usage
+-----
+
+Run `make` to build `nrc_cr_cans.keyman-touch-layout` and `nrc_cr_cans.kmn`.
+
+If you don't have `make`, you can run:
+
+    python3 generate-touch-layout.py nrc_cr_cans.keyman-touch-layout
+    python3 generate-layout-code.py nrc_cr_cans.kmn
+
 
 Copying
 -------
