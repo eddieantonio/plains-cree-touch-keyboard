@@ -135,7 +135,11 @@ class PeriodKey(Key):
             "id": "U_166E",
             "text": "᙮",
             "width": self.effective_width,
-            "sk": [{"text": "!", "id": "U_0021"}, {"text": "?", "id": "U_0022"}],
+            "sk": [
+                {"text": ",", "id": "U_002C"},
+                {"text": "?", "id": "U_003F"},
+                {"text": "!", "id": "U_0021"},
+            ],
             "nextlayer": "default",
         }
 
