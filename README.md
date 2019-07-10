@@ -1,6 +1,8 @@
 Plains Cree Touch Keyboard generator
 ====================================
 
+[![Build Status](https://travis-ci.org/eddieantonio/plains-cree-touch-keyboard.svg?branch=master)](https://travis-ci.org/eddieantonio/plains-cree-touch-keyboard)
+
 I've written code here that generates a `.keyman-touch-layout` JSON file
 and a `.kmn` Keyman programming language file, that, put together,
 create a keyboard for writing ᓀᐦᐃᔭᐘᓯᓇᐦᐃᑫᐏᐣ (Plains Cree syllabics).
