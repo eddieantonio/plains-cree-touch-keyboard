@@ -1,4 +1,4 @@
-TOUCH_LAYOUT = nrc_cr_cans.kmn.json
+TOUCH_LAYOUT = nrc_cr_cans.keyman-touch-layout
 KEY_LAYOUT = nrc_cr_cans.kmn
 
 all: $(TOUCH_LAYOUT) $(KEY_LAYOUT)
