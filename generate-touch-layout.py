@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: UTF-8 -*-
 
+# Copyright © 2019 Eddie Antonio Santos <Eddie.Santos@nrc-cnrc.gc.ca>
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 import json
 import re
 import sys
-
-from syllabics import SYLLABICS
+from ioutils import setup_output
 from plains_cree_constants import COMBINING_CONSONANTS, VOWELS
+from syllabics import SYLLABICS
 
 
 LAYOUT = """
@@ -293,7 +299,9 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
 
 #################################### Main ####################################
 if __name__ == "__main__":
-    sys.stdout.reconfigure(encoding="UTF-8")  # Workaround for Windows.
+    # Setup output, either to stdout or
+    setup_output()
+
     # Parse the table of syllabics, as well as the keyboard layout.
     keyboard = parse_ascii_layout(LAYOUT)
 
