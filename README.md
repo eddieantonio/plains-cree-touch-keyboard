@@ -11,7 +11,7 @@ Requirements
 ------------
 
  * `make`
- * Python 3.6+
+ * Python 3.7+
  * (optional) [Black](https://github.com/python/black)
 
 The files can then be packaged in [Keyman
