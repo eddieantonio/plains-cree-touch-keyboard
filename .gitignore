@@ -1,3 +1,4 @@
-nrc_cr_cans.kmn.json
-__pycache__
-nrc_cr_cans.kmn
+*.keyman-touch-layout
+*.kmn
+*.json
+__pycache__/
