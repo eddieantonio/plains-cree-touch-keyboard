@@ -1,0 +1,69 @@
+:root {
+    --keyboard-bgcolor: #464646;        /* background */
+    --key-bgcolor: #4F4F4F;             /* regular key */
+    --key-fgcolor: #FFFFFF;             /* foreground color */
+    --special-key-bgcolor: #5E5E5E;     /* special key (space, shift, symbols, etc.) */
+    --active-key-bgcolor: #76FCCD;      /* OK */
+    --active-key-fgcolor: #000000;
+    --depressed-key-fgcolor: #3A3D42;   /* "de-pressed" as in, pressed down, not upset! */
+}
+
+
+
+/*            _
+ *   ___ ___ | | ___  _   _ _ __ ___
+ *  / __/ _ \| |/ _ \| | | | '__/ __|
+ * | (_| (_) | | (_) | |_| | |  \__ \
+ *  \___\___/|_|\___/ \__,_|_|  |___/
+ *
+ */
+
+.special.key {
+    background-color: var(--special-key-bgcolor, black);
+}
+
+/*                  _ _   _             _
+ *  _ __   ___  ___(_) |_(_) ___  _ __ (_)_ __   __ _
+ * | '_ \ / _ \/ __| | __| |/ _ \| '_ \| | '_ \ / _` |
+ * | |_) | (_) \__ \ | |_| | (_) | | | | | | | | (_| |
+ * | .__/ \___/|___/_|\__|_|\___/|_| |_|_|_| |_|\__, |
+ * |_|                                          |___/
+ *
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    font: 12px Euphemia, Euphemia UCAS, sans-serif;
+}
+
+
+.keyboard {
+    width: 1000px;
+    background: var(--keyboard-bgcolor, black);
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-column-gap: 1%;
+    grid-row-gap: 10px;
+}
+
+.key {
+    color: var(--key-fgcolor, white);
+    background-color: var(--key-bgcolor, black);
+    display: inline-block;
+    height: 100px;
+    line-height: 3;
+    text-align: center;
+    font-size: 35px;
+}
+
+
+.nnbsp.key {
+    grid-column: 4 / span 2;
+}
+.space.key {
+    grid-column: 3 / span 4;
+}
