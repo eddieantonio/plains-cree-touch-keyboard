@@ -32,7 +32,8 @@ KEY_WIDTH = SLOT_WIDTH - PADDING_BETWEEN  # How much of the slot is the key itse
 # https://help.keyman.com/developer/10.0/guides/develop/creating-a-touch-keyboard-layout-for-amharic-the-nitty-gritty#id488808
 NORMAL_KEY = "0"
 SPECIAL_KEY = "1"  # for ABC, 123, Enter, BS, etc.
-ACTIVE_KEY = "2"  # for active consonant/w.
+ACTIVE_KEY = "2"  # for non-default vowel syllabics
+DEAD_KEY = "8"  # for active consonant/w. 
 BLANK_KEY = "9"  # placeholder for missing nwV syllabics
 
 ALWAYS_RETURN_TO_DEFAULT_LAYER = {"hk", "l", "r", "h"}
@@ -113,12 +114,16 @@ class VowelKey(Key):
                 width=self.effective_width,
             )
         else:
-            return dict(
+            result = dict(
                 id=syllabic.key_code,
                 text=syllabic.cans,
                 nextlayer="default",
                 width=self.effective_width,
             )
+            # Highlight the vowels that have changed.
+            if consonant:
+                result.update(sp=ACTIVE_KEY)
+            return result
 
 
 class PeriodKey(Key):
@@ -202,7 +207,7 @@ class CombiningConsonantKey(Key):
         obj.update(nextlayer=self.consonant + "V")
         # If we're already in that layer, then hightlight this consonant
         if consonant == self.consonant:
-            obj.update(sp=ACTIVE_KEY)
+            obj.update(sp=DEAD_KEY)
         return obj
 
 
@@ -233,7 +238,7 @@ class WKey(CombiningConsonantKey):
             obj.update(nextlayer=f"{consonant}wV")
         elif mode == "CwV":
             # ¯\_(ツ)_/¯
-            obj.update(nextlayer=f"default", sp=ACTIVE_KEY)
+            obj.update(nextlayer=f"default", sp=DEAD_KEY)
 
         return obj
 
