@@ -24,8 +24,8 @@ LAYOUT = """
 
 # For some reason, I decided each "slot" would be 15 units
 # There are 8 keys, giving a total width of 8 ⨉ 15 = 120 units.
-SLOT_WIDTH = 15  # How much width each "slot" occupies
-PADDING_BETWEEN = 2  # How much of the slot is just the padding.
+SLOT_WIDTH = 100.0 / 8  # How much width each "slot" occupies
+PADDING_BETWEEN = 1  # How much of the slot is just the padding.
 KEY_WIDTH = SLOT_WIDTH - PADDING_BETWEEN  # How much of the slot is the key itself
 
 # Key types
@@ -299,9 +299,9 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
                     # Bug 🐛 in KeymanWeb: width and pad MUST be strings 🙃
                     # https://github.com/keymanapp/keyman/issues/119
                     key["width"] = str(key["width"])
+                    key["pad"] = str(PADDING_BETWEEN)
 
-                    if index > 0:
-                        key["pad"] = str(PADDING_BETWEEN)
+                assert 100.0 == sum(float(key['width']) + float(key['pad']) for key in keys)
 
                 layout_rows.append({"id": rowid, "key": keys})
 
