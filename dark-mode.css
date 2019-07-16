@@ -1,14 +1,4 @@
-:root {
-    --keyboard-bgcolor: #464646;        /* background */
-    --key-bgcolor: #4F4F4F;             /* regular key */
-    --key-fgcolor: #FFFFFF;             /* foreground color */
-    --special-key-bgcolor: #5E5E5E;     /* special key (space, shift, symbols, etc.) */
-    --active-key-bgcolor: #76FCCD;      /* OK */
-    --active-key-fgcolor: #000000;
-    --depressed-key-fgcolor: #3A3D42;   /* "de-pressed" as in, pressed down, not upset! */
-}
-
-
+@charset "UTF-8";
 
 /*            _
  *   ___ ___ | | ___  _   _ _ __ ___
@@ -18,8 +8,36 @@
  *
  */
 
+:root {
+    --keyboard-bgcolor: #464646;        /* background */
+    --key-bgcolor: #4F4F4F;             /* regular key */
+    --key-fgcolor: #FFFFFF;             /* foreground color */
+    --special-key-bgcolor: #5E5E5E;     /* special key (space, shift, symbols, etc.) */
+    --active-key-bgcolor: #76FCCD;      /* OK */
+    --active-key-fgcolor: #000000;
+    --depressed-key-bgcolor: #3A3D42;   /* "de-pressed" as in, pressed down, not upset! */
+}
+
+.keyboard {
+    background-color: var(--keyboard-bgcolor, black);
+}
+
+.key {
+    color: var(--key-fgcolor, white);
+    background-color: var(--key-bgcolor, black);
+}
+
 .special.key {
     background-color: var(--special-key-bgcolor, black);
+}
+
+.active.key {
+    background-color: var(--depressed-key-bgcolor, white);
+}
+
+.vowel.key {
+    color: var(--active-key-fgcolor, white);
+    background-color: var(--active-key-bgcolor, black);
 }
 
 /*                  _ _   _             _
@@ -39,10 +57,8 @@ html, body {
     font: 12px Euphemia, Euphemia UCAS, sans-serif;
 }
 
-
 .keyboard {
     width: 1000px;
-    background: var(--keyboard-bgcolor, black);
     margin: auto;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -51,8 +67,6 @@ html, body {
 }
 
 .key {
-    color: var(--key-fgcolor, white);
-    background-color: var(--key-bgcolor, black);
     display: inline-block;
     height: 100px;
     line-height: 3;
@@ -60,10 +74,5 @@ html, body {
     font-size: 35px;
 }
 
-
-.nnbsp.key {
-    grid-column: 4 / span 2;
-}
-.space.key {
-    grid-column: 3 / span 4;
-}
+.nnbsp.key { grid-column: 4 / span 2; }
+.space.key { grid-column: 3 / span 4; }
