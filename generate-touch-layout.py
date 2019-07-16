@@ -33,7 +33,7 @@ KEY_WIDTH = SLOT_WIDTH - PADDING_BETWEEN  # How much of the slot is the key itse
 NORMAL_KEY = "0"
 SPECIAL_KEY = "1"  # for ABC, 123, Enter, BS, etc.
 ACTIVE_KEY = "2"  # for non-default vowel syllabics
-DEAD_KEY = "8"  # for active consonant/w. 
+DEAD_KEY = "8"  # for active consonant/w.
 BLANK_KEY = "9"  # placeholder for missing nwV syllabics
 
 ALWAYS_RETURN_TO_DEFAULT_LAYER = {"hk", "l", "r", "h"}
@@ -301,7 +301,9 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
                     key["width"] = str(key["width"])
                     key["pad"] = str(PADDING_BETWEEN)
 
-                assert 100.0 == sum(float(key['width']) + float(key['pad']) for key in keys)
+                assert 100.0 == sum(
+                    float(key["width"]) + float(key["pad"]) for key in keys
+                ), f"row {rowid} did not add up to 100%"
 
                 layout_rows.append({"id": rowid, "key": keys})
 
