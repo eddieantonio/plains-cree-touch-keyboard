@@ -31,9 +31,9 @@ KEY_WIDTH = SLOT_WIDTH - PADDING_BETWEEN  # How much of the slot is the key itse
 # Key types
 # https://help.keyman.com/developer/10.0/guides/develop/creating-a-touch-keyboard-layout-for-amharic-the-nitty-gritty#id488808
 NORMAL_KEY = "0"
-SPECIAL_KEY = "1"  # TODO: for vowels?
-ACTIVE_KEY = "2"  # TODO: for active consonant?
-BLANK_KEY = "9"
+SPECIAL_KEY = "1"  # for ABC, 123, Enter, BS, etc.
+ACTIVE_KEY = "2"  # for active consonant/w.
+BLANK_KEY = "9"  # placeholder for missing nwV syllabics
 
 ALWAYS_RETURN_TO_DEFAULT_LAYER = {"hk", "l", "r", "h"}
 
