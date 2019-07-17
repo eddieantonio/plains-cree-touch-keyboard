@@ -15,10 +15,44 @@ from plains_cree_constants import COMBINING_CONSONANTS, VOWELS
 from syllabics import SYLLABICS
 
 
+# For guidelines on how to create a comfortable layout, I used two sources of
+# data:
+#
+#  - I counted unigrams, bigrams, and syllabics [Santos n.d.] from the
+#    Ahenekew-Wolfart corpus [Arppe n.d.]
+#  - I consulted [Park 2008] and choose placements based on  a 7mm layout, as
+#    this will fit on modern smartphones.
+#
+# I placed vowels first, on the right-side, placing the most common vowels in
+# the most subjectively comfortable positions, and where the error rate and
+# time to press rates were "good", all according to [Park 2008]. This is
+# intended to maximize the comfort of typing a vowel from using your right
+# thumb. I placed "special" consonants---"h", "w"---in the remaining "good" spots
+# on the right-side of the keyboard. I placed "r" in the uncomfortable spot on
+# the right-side of the keyboard, as "r" is rarely used. Importantly, the most
+# common vowels were placed on the third column from the right, which [Park
+# 2008] claims to fit to the natural axis of rotation of the thumb.
+#
+# To place the remaining consonants, I mirrored the 7mm "goodness" charts from
+# [Park 2008] and repeated the process, placing the most common consonants in
+# comfortable positions. The third column from the left contains the most
+# often used consonants, excluding the "special" consonants "h" and "w". "l"
+# is placed in the uncomfortable spot on the left side of the keyboard.
+#
+# This is my rationale, yet the final positioning is ultimately quite
+# arbitrary. I tried to place keys that "go together well" besides each other,
+# like the the nasals ("m", and "n") are besides each other; the glides ("y",
+# "w") are besides each other. I've tried to make short vowels and their long
+# equivilents next to each other. I was successfull for "a"/"â" and "i"/î",
+# but for sake of comfort and frequency, I split up "ô" from "o".
+#
+# [Arppe n.d.]: http://altlab.artsrn.ualberta.ca/wp-content/uploads/2019/05/Arppe_et_al_PAC49.pdf
+# [Park 2008]: https://www.sciencedirect.com/science/article/pii/S0169814109001036
+# [Santos n.d.]: https://gist.github.com/eddieantonio/1b0f25f1c6d78e6dfb611f490a0822c7#file-unigrams-tsv
 LAYOUT = """
-[  s  ] [  w   ] [ m ] [ l ] [ r ] [ â ] [ i ] [  î ]
-[  hk ] [  t   ] [ k ] [ h ] [ p ] [ a ] [ o ] [  c ]
-[ ABC ] [  y   ] [ n ] [  NNBSP  ] [ ê ] [ ô ] [ BS ]
+[  hk ] [  m   ] [ n ] [ y ] [ w ] [ i ] [ î ] [  ô ]
+[  l  ] [  p   ] [ t ] [ s ] [ â ] [ a ] [ o ] [  r ]
+[ ABC ] [  c   ] [ k ] [  NNBSP  ] [ ê ] [ h ] [ BS ]
 [ 123 ] [ MENU ] [         SP          ] [ . ] [ CR ]
 """
 
