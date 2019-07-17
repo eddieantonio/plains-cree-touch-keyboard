@@ -56,10 +56,10 @@ LAYOUT = """
 [ 123 ] [ MENU ] [         SP          ] [ . ] [ CR ]
 """
 
-# For some reason, I decided each "slot" would be 15 units
-# There are 8 keys, giving a total width of 8 ⨉ 15 = 120 units.
-SLOT_WIDTH = 100.0 / 8  # How much width each "slot" occupies
-PADDING_BETWEEN = 1  # How much of the slot is just the padding.
+# Keyman defines each key's width as being 100 units.
+# The default padding is 5 units.
+SLOT_WIDTH = 105  # How much width each "slot" occupies
+PADDING_BETWEEN = 5  # How much of the slot is just the padding.
 KEY_WIDTH = SLOT_WIDTH - PADDING_BETWEEN  # How much of the slot is the key itself
 
 # Key types
@@ -77,8 +77,6 @@ class Key:
     """
     Represents a generic key on the keyboard.
     """
-
-    proportional_width = 1
 
     def __init__(self, label):
         self.label = label
@@ -98,7 +96,6 @@ class Key:
         return dict(
             id=syllabic.key_code,
             text=syllabic.cans,
-            width=self.effective_width,
             **self.extra_attributes,
         )
 
@@ -110,16 +107,6 @@ class Key:
         cls = type(self).__name__
         return f"{cls}({self.label!r})"
 
-    @property
-    def effective_width(self):
-        """
-        The width of the key taking the proportional width and default padding
-        into account.
-
-        This EXCLUDES the current key's padding.
-        """
-        padding = (self.proportional_width - 1) * PADDING_BETWEEN
-        return self.proportional_width * KEY_WIDTH + padding
 
 
 class VowelKey(Key):
@@ -145,14 +132,12 @@ class VowelKey(Key):
                 id="",  # A blank code is valid, apparently?
                 sp=BLANK_KEY,
                 text="",
-                width=self.effective_width,
             )
         else:
             result = dict(
                 id=syllabic.key_code,
                 text=syllabic.cans,
                 nextlayer="default",
-                width=self.effective_width,
             )
             # Highlight the vowels that have changed.
             if consonant:
@@ -173,7 +158,6 @@ class PeriodKey(Key):
         return {
             "id": "U_166E",
             "text": "᙮",
-            "width": self.effective_width,
             "sk": [
                 {"text": ",", "id": "U_002C"},
                 {"text": "?", "id": "U_003F"},
@@ -204,13 +188,15 @@ class SpecialKey(Key):
 
     def dictionary_for_key(self):
         settings = self.SETTINGS[self.label]
-        return dict(
+        key = dict(
             id=settings["id"],
             text=settings["text"],
-            width=self.effective_width,
             sp=settings["sp"],
             nextlayer=settings["nextlayer"],
         )
+        if self.proportional_width > 1:
+            key.update(width=self.effective_width)
+        return key
 
     @property
     def proportional_width(self):
@@ -219,6 +205,17 @@ class SpecialKey(Key):
     @classmethod
     def label_matches(cls, tag):
         return tag in cls.SETTINGS
+
+    @property
+    def effective_width(self):
+        """
+        The width of the key taking the proportional width and default padding
+        into account.
+
+        This EXCLUDES the current key's padding.
+        """
+        padding = (self.proportional_width - 1) * PADDING_BETWEEN
+        return self.proportional_width * KEY_WIDTH + padding
 
 
 class CombiningConsonantKey(Key):
@@ -326,18 +323,20 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
                     key.dictionary_for_key_with_mode(mode, consonant) for key in row
                 ]
 
+                # TODO: add on to this pile of hacks...
+                # only give a width and padding for nnbsp and space keys :/
+                # So apparently, key width is supposed to add up to 100 * number of keys..
+                # when the key is greater than 100, you have to add padding (default 5)
+
                 # Post-process the keys:
                 # Implement workarounds to make the layout render correctly
                 for index, key in enumerate(keys):
-                    assert "width" in key, "A key is missing its width property"
                     # Bug 🐛 in KeymanWeb: width and pad MUST be strings 🙃
                     # https://github.com/keymanapp/keyman/issues/119
-                    key["width"] = str(key["width"])
-                    key["pad"] = str(PADDING_BETWEEN)
-
-                assert 100.0 == sum(
-                    float(key["width"]) + float(key["pad"]) for key in keys
-                ), f"row {rowid} did not add up to 100%"
+                    if "width" in key:
+                        key["width"] = str(key["width"])
+                    if "pad" in key:
+                        key["pad"] = str(PADDING_BETWEEN)
 
                 layout_rows.append({"id": rowid, "key": keys})
 
