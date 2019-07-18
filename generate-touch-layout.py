@@ -10,9 +10,11 @@
 import json
 import re
 import sys
+
 from ioutils import setup_output
 from plains_cree_constants import COMBINING_CONSONANTS, VOWELS
 from syllabics import SYLLABICS
+from latin_keyboard import LATIN_LAYERS
 
 
 # For guidelines on how to create a comfortable layout, I used two sources of
@@ -93,11 +95,7 @@ class Key:
 
     def dictionary_for_key(self):
         syllabic = SYLLABICS[self.label]
-        return dict(
-            id=syllabic.key_code,
-            text=syllabic.cans,
-            **self.extra_attributes,
-        )
+        return dict(id=syllabic.key_code, text=syllabic.cans, **self.extra_attributes)
 
     def dictionary_for_key_with_mode(self, mode, consonant):
         assert mode in ("CV", "CwV")
@@ -106,7 +104,6 @@ class Key:
     def __repr__(self):
         cls = type(self).__name__
         return f"{cls}({self.label!r})"
-
 
 
 class VowelKey(Key):
@@ -129,16 +126,10 @@ class VowelKey(Key):
             # nwV exceptional cases. Place a blank here instead.
             assert sro.startswith("nw")
             return dict(
-                id="",  # A blank code is valid, apparently?
-                sp=BLANK_KEY,
-                text="",
+                id="", sp=BLANK_KEY, text=""  # A blank code is valid, apparently?
             )
         else:
-            result = dict(
-                id=syllabic.key_code,
-                text=syllabic.cans,
-                nextlayer="default",
-            )
+            result = dict(id=syllabic.key_code, text=syllabic.cans, nextlayer="default")
             # Highlight the vowels that have changed.
             if consonant:
                 result.update(sp=ACTIVE_KEY)
@@ -175,12 +166,12 @@ class SpecialKey(Key):
     SETTINGS = {
         "SP": dict(id="K_SPACE", text="", width=4, nextlayer="default", sp=NORMAL_KEY),
         "BS": dict(id="K_BKSP", text="*BkSp*", nextlayer="default", sp=SPECIAL_KEY),
-        "123": dict(id="K_NUMLOCK", text="*123*", nextlayer="default", sp=SPECIAL_KEY),
+        "123": dict(id="K_NUMLOCK", text="*123*", nextlayer="numeric", sp=SPECIAL_KEY),
         "NNBSP": dict(
             id="U_202F", text="", width=2, nextlayer="default", sp=NORMAL_KEY
         ),
         "ABC": dict(
-            id="K_UPPER", text="*ABC*", nextlayer="default", sp=SPECIAL_KEY
+            id="K_UPPER", text="*ABC*", nextlayer="latin_lower", sp=SPECIAL_KEY
         ),  # TODO: make a latin layout
         "CR": dict(id="K_ENTER", text="*Enter*", nextlayer="default", sp=SPECIAL_KEY),
         "MENU": dict(id="K_LOPT", text="*Menu*", nextlayer="default", sp=SPECIAL_KEY),
@@ -341,6 +332,9 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
                 layout_rows.append({"id": rowid, "key": keys})
 
             layers.append(dict(id=layer_id, row=layout_rows))
+
+    # Add "latin_lower", "latin_upper", and "numeric" layers to the keyboard.
+    layers.extend(LATIN_LAYERS)
 
     phone_layout = {"font": "Euphemia", "layer": layers, "displayUnderlying": False}
     return {"phone": phone_layout}
