@@ -3,7 +3,7 @@ KEY_LAYOUT = nrc_cr_cans.kmn
 
 all: $(TOUCH_LAYOUT) $(KEY_LAYOUT)
 
-$(TOUCH_LAYOUT): ./generate-touch-layout.py syllabics.py syllabics.tsv plains_cree_constants.py
+$(TOUCH_LAYOUT): ./generate-touch-layout.py syllabics.py syllabics.tsv plains_cree_constants.py ./latin_keyboard.py
 	./$< $@
 
 $(KEY_LAYOUT): ./generate-layout-code.py syllabics.py syllabics.tsv plains_cree_constants.py

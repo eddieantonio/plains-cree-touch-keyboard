@@ -7,7 +7,7 @@ The keyboard layers for
 
 """
 
-SYLLABICS_KEY = {"id": "K_SCROLL", "text": "ᓀᐦᔭᐤ ", "nextlayer": "default"}
+SYLLABICS_KEY = {"id": "K_SCROLL", "text": "ᓀᐦᐃᔭᐤ", "nextlayer": "default"}
 
 # Note: This was mostly copy-pasted from Keyman's default touch-optimized layout.
 LATIN_LAYERS = [
