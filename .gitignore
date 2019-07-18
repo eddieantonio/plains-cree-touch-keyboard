@@ -1,6 +1,9 @@
 # Python stuff:
 __pycache__/
 
+# Compiled mobile keyboard.
+nrc_cr_cans.js
+
 # Generate files (by scripts here)
 *.keyman-touch-layout
 *.kmn
