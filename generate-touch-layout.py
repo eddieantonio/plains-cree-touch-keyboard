@@ -330,7 +330,7 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
 
                 # Post-process the keys:
                 # Implement workarounds to make the layout render correctly
-                for index, key in enumerate(keys):
+                for _index, key in enumerate(keys):
                     # Bug 🐛 in KeymanWeb: width and pad MUST be strings 🙃
                     # https://github.com/keymanapp/keyman/issues/119
                     if "width" in key:
