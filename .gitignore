@@ -1,4 +1,14 @@
+# Python stuff:
+__pycache__/
+
+# Generate files (by scripts here)
 *.keyman-touch-layout
 *.kmn
-*.json
-__pycache__/
+
+# Keyman Generated Files
+*.kmx
+*.kpj.user
+
+# Editor stuff:
+.vscode/
+.*sw[po]
