@@ -14,8 +14,11 @@ A mapping between SRO syllables and syllabics.
 import csv
 from types import MappingProxyType
 from typing import NamedTuple
+from pathlib import Path
+
 
 __all__ = ["SYLLABICS"]
+here = Path(__file__).parent
 
 
 class Syllabic(NamedTuple):
@@ -57,7 +60,7 @@ def _parse_syllabics():
     https://github.com/UAlbertaALTLab/nehiyawewin-syllabics/blob/master/syllabics.tsv
     """
     syllabics = {}
-    with open("./syllabics.tsv", encoding="UTF-8") as syllabics_file:
+    with open(here / "syllabics.tsv", encoding="UTF-8") as syllabics_file:
         syllabics_tsv = csv.DictReader(syllabics_file, delimiter="\t")
         for row in syllabics_tsv:
             syllabic = Syllabic.from_tsv(row)

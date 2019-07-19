@@ -12,9 +12,10 @@ Generates the .kmn keyboard code for to make the touch layout work properly.
 """
 
 import sys
-from ioutils import setup_output
-from plains_cree_constants import COMBINING_CONSONANTS, VOWELS
-from syllabics import SYLLABICS
+
+from libkeyboard.ioutils import setup_output
+from libkeyboard.plains_cree_constants import COMBINING_CONSONANTS, VOWELS
+from libkeyboard.syllabics import SYLLABICS
 
 
 setup_output()

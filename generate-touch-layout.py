@@ -11,10 +11,10 @@ import json
 import re
 import sys
 
-from ioutils import setup_output
-from plains_cree_constants import COMBINING_CONSONANTS, VOWELS
-from syllabics import SYLLABICS
-from latin_keyboard import LATIN_LAYERS
+from libkeyboard.ioutils import setup_output
+from libkeyboard.latin_keyboard import LATIN_LAYERS
+from libkeyboard.plains_cree_constants import COMBINING_CONSONANTS, VOWELS
+from libkeyboard.syllabics import SYLLABICS
 
 
 # For guidelines on how to create a comfortable layout, I used two sources of
