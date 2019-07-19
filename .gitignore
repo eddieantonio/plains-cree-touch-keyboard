@@ -11,6 +11,7 @@ nrc_cr_cans.js
 # Keyman Generated Files
 *.kmx
 *.kpj.user
+*.kmp
 
 # Editor stuff:
 .vscode/

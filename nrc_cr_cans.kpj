@@ -18,5 +18,33 @@
         <Copyright>Copyright © 2019 National Research Council Canada</Copyright>
       </Details>
     </File>
+    <File>
+      <ID>id_ff5ef2f4e48023fb338277e9c1f92936</ID>
+      <Filename>nrc_cr_cans.kps</Filename>
+      <Filepath>nrc_cr_cans.kps</Filepath>
+      <FileVersion>0.20190719.0</FileVersion>
+      <FileType>.kps</FileType>
+      <Details>
+        <Name>Plains Cree Syllabics Keyboard</Name>
+        <Copyright>© 2019 National Research Council Canada</Copyright>
+        <Version>0.20190719.0</Version>
+      </Details>
+    </File>
+    <File>
+      <ID>id_db0ecc9eec05327060620c57a576bfc7</ID>
+      <Filename>nrc_cr_cans.js</Filename>
+      <Filepath>nrc_cr_cans.js</Filepath>
+      <FileVersion></FileVersion>
+      <FileType>.js</FileType>
+      <ParentFileID>id_ff5ef2f4e48023fb338277e9c1f92936</ParentFileID>
+    </File>
+    <File>
+      <ID>id_52630e030c3e2fe57c88fac13a8abc72</ID>
+      <Filename>README.htm</Filename>
+      <Filepath>README.htm</Filepath>
+      <FileVersion></FileVersion>
+      <FileType>.htm</FileType>
+      <ParentFileID>id_ff5ef2f4e48023fb338277e9c1f92936</ParentFileID>
+    </File>
   </Files>
 </KeymanDeveloperProject>
