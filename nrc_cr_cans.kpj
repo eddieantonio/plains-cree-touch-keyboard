@@ -8,14 +8,6 @@
   </Options>
   <Files>
     <File>
-      <ID>id_462071252e0dbf445737d00f380794df</ID>
-      <Filename>nrc_xx_ipa.kps</Filename>
-      <Filepath>nrc_xx_ipa.kps</Filepath>
-      <FileVersion></FileVersion>
-      <FileType>.kps</FileType>
-      <Details/>
-    </File>
-    <File>
       <ID>id_9bb0a2adfb797ba9ee1c032ab2eaf794</ID>
       <Filename>nrc_cr_cans.kmn</Filename>
       <Filepath>nrc_cr_cans.kmn</Filepath>
