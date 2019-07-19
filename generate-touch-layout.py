@@ -151,6 +151,9 @@ class PeriodKey(Key):
             "text": "᙮",
             "sk": [
                 {"text": ",", "id": "U_002C"},
+                {"text": ".", "id": "U_002E"},
+                {"text": '"', "id": "U_0022"},
+                {"text": "᐀", "id": "U_1400"},
                 {"text": "?", "id": "U_003F"},
                 {"text": "!", "id": "U_0021"},
             ],
