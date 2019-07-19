@@ -10,7 +10,7 @@ all: $(TOUCH_LAYOUT) $(KEY_LAYOUT)
 $(TOUCH_LAYOUT): ./generate-touch-layout.py $(LIBS) $(DATA)
 	./$< $@
 
-$(KEY_LAYOUT): ./generate-layout-code.py $(LIBS) $(DATA)
+$(KEY_LAYOUT): ./generate-kmn.py $(LIBS) $(DATA)
 	./$< $@
 
 format:

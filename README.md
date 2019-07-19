@@ -28,8 +28,8 @@ Run `make` to build `nrc_cr_cans.keyman-touch-layout` and `nrc_cr_cans.kmn`.
 
 If you don't have `make`, you can run:
 
-    python3 generate-touch-layout.py nrc_cr_cans.keyman-touch-layout
-    python3 generate-layout-code.py nrc_cr_cans.kmn
+    python3 generate-touch-layout.py
+    python3 generate-kmn.py
 
 
 Copying
