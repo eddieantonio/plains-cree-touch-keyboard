@@ -35,8 +35,6 @@ store(&COPYRIGHT) 'Copyright © 2019 National Research Council Canada'
 store(&KEYBOARDVERSION) '{version}'
 store(&LAYOUTFILE) 'nrc_cr_cans.keyman-touch-layout'
 
-c TODO: Embed custom CSS?
-
 begin Unicode > use(main)
 group(main) using keys
 """.strip()
