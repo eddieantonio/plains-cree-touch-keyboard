@@ -1,8 +1,8 @@
 """
 The keyboard layers for
 
- - latin_lower
- - latin_upper
+ - latin
+ - shift -- Note: This layer is special-cased in KeymanWeb!
  - numeric
 
 """
@@ -12,7 +12,7 @@ SYLLABICS_KEY = {"id": "K_SCROLL", "text": "ᓀᐦᐃᔭᐤ", "nextlayer": "defa
 # Note: This was mostly copy-pasted from Keyman's default touch-optimized layout.
 LATIN_LAYERS = [
     {
-        "id": "latin_lower",
+        "id": "latin",
         "row": [
             {
                 "id": 1,
@@ -50,9 +50,9 @@ LATIN_LAYERS = [
                 "key": [
                     {
                         "id": "K_SHIFT",
-                        "text": "*Shift*",
+                        "text": "*Shifted*",
                         "sp": "1",
-                        "nextlayer": "latin_upper",
+                        "nextlayer": "shift",
                     },
                     {"id": "K_Z", "text": "z"},
                     {"id": "K_X", "text": "x"},
@@ -66,12 +66,12 @@ LATIN_LAYERS = [
                         "text": ".",
                         "sk": [
                             {"text": ",", "id": "K_COMMA"},
-                            {"text": "!", "id": "K_1", "layer": "latin_upper"},
-                            {"text": "?", "id": "K_SLASH", "layer": "latin_upper"},
+                            {"text": "!", "id": "K_1", "layer": "shift"},
+                            {"text": "?", "id": "K_SLASH", "layer": "shift"},
                             {"text": "'", "id": "K_QUOTE"},
-                            {"text": '"', "id": "K_QUOTE", "layer": "latin_upper"},
+                            {"text": '"', "id": "K_QUOTE", "layer": "shift"},
                             {"text": "\\", "id": "K_BKSLASH"},
-                            {"text": ":", "id": "K_COLON", "layer": "latin_upper"},
+                            {"text": ":", "id": "K_COLON", "layer": "shift"},
                             {"text": ";", "id": "K_COLON"},
                         ],
                     },
@@ -96,7 +96,7 @@ LATIN_LAYERS = [
         ],
     },
     {
-        "id": "latin_upper",
+        "id": "shift",
         "row": [
             {
                 "id": 1,
@@ -135,7 +135,7 @@ LATIN_LAYERS = [
                         "id": "K_SHIFT",
                         "text": "*Shift*",
                         "sp": "2",
-                        "nextlayer": "latin_lower",
+                        "nextlayer": "latin",
                     },
                     {"id": "K_Z", "text": "Z"},
                     {"id": "K_X", "text": "X"},
@@ -148,14 +148,14 @@ LATIN_LAYERS = [
                         "id": "K_PERIOD",
                         "text": ".",
                         "sk": [
-                            {"text": ",", "id": "K_COMMA", "layer": "latin_lower"},
-                            {"text": "!", "id": "K_1", "layer": "latin_upper"},
-                            {"text": "?", "id": "K_SLASH", "layer": "latin_upper"},
-                            {"text": "'", "id": "K_QUOTE", "layer": "latin_lower"},
-                            {"text": '"', "id": "K_QUOTE", "layer": "latin_upper"},
-                            {"text": "\\", "id": "K_BKSLASH", "layer": "latin_lower"},
-                            {"text": ":", "id": "K_COLON", "layer": "latin_upper"},
-                            {"text": ";", "id": "K_COLON", "layer": "latin_lower"},
+                            {"text": ",", "id": "K_COMMA", "layer": "latin"},
+                            {"text": "!", "id": "K_1", "layer": "shift"},
+                            {"text": "?", "id": "K_SLASH", "layer": "shift"},
+                            {"text": "'", "id": "K_QUOTE", "layer": "latin"},
+                            {"text": '"', "id": "K_QUOTE", "layer": "shift"},
+                            {"text": "\\", "id": "K_BKSLASH", "layer": "latin"},
+                            {"text": ":", "id": "K_COLON", "layer": "shift"},
+                            {"text": ";", "id": "K_COLON", "layer": "latin"},
                         ],
                     },
                     {"id": "K_BKSP", "text": "*BkSp*", "sp": "1"},
@@ -199,15 +199,15 @@ LATIN_LAYERS = [
             {
                 "id": 2,
                 "key": [
-                    {"id": "K_4", "text": "$", "pad": "50", "layer": "latin_upper"},
-                    {"id": "K_2", "text": "@", "layer": "latin_upper"},
-                    {"id": "K_3", "text": "#", "layer": "latin_upper"},
-                    {"id": "K_5", "text": "%", "layer": "latin_upper"},
-                    {"id": "K_6", "text": "&", "layer": "latin_upper"},
-                    {"id": "K_HYPHEN", "text": "_", "layer": "latin_upper"},
-                    {"id": "K_EQUAL", "text": "=", "layer": "latin_lower"},
-                    {"id": "K_BKSLASH", "text": "|", "layer": "latin_upper"},
-                    {"id": "K_BKSLASH", "text": "\\", "layer": "latin_lower"},
+                    {"id": "K_4", "text": "$", "pad": "50", "layer": "shift"},
+                    {"id": "K_2", "text": "@", "layer": "shift"},
+                    {"id": "K_3", "text": "#", "layer": "shift"},
+                    {"id": "K_5", "text": "%", "layer": "shift"},
+                    {"id": "K_6", "text": "&", "layer": "shift"},
+                    {"id": "K_HYPHEN", "text": "_", "layer": "shift"},
+                    {"id": "K_EQUAL", "text": "=", "layer": "latin"},
+                    {"id": "K_BKSLASH", "text": "|", "layer": "shift"},
+                    {"id": "K_BKSLASH", "text": "\\", "layer": "latin"},
                     {"id": "T_new_228", "text": "", "width": "10", "sp": "10"},
                 ],
             },
@@ -219,7 +219,7 @@ LATIN_LAYERS = [
                         "text": "*abc*",
                         "width": "",
                         "sp": "1",
-                        "nextlayer": "latin_lower",
+                        "nextlayer": "latin",
                     },
                     {
                         "id": "K_LBRKT",
@@ -227,24 +227,24 @@ LATIN_LAYERS = [
                         "pad": "",
                         "sk": [
                             {"id": "U_00AB", "text": "«"},
-                            {"id": "K_COMMA", "text": "<", "layer": "latin_upper"},
-                            {"id": "K_LBRKT", "text": "{", "layer": "latin_upper"},
+                            {"id": "K_COMMA", "text": "<", "layer": "shift"},
+                            {"id": "K_LBRKT", "text": "{", "layer": "shift"},
                         ],
                     },
-                    {"id": "K_9", "text": "(", "layer": "latin_upper"},
-                    {"id": "K_0", "text": ")", "layer": "latin_upper"},
+                    {"id": "K_9", "text": "(", "layer": "shift"},
+                    {"id": "K_0", "text": ")", "layer": "shift"},
                     {
                         "id": "K_RBRKT",
                         "text": "]",
                         "sk": [
                             {"id": "U_00BB", "text": "»"},
-                            {"id": "K_PERIOD", "text": ">", "layer": "latin_upper"},
-                            {"id": "K_RBRKT", "text": "}", "layer": "latin_upper"},
+                            {"id": "K_PERIOD", "text": ">", "layer": "shift"},
+                            {"id": "K_RBRKT", "text": "}", "layer": "shift"},
                         ],
                     },
-                    {"id": "K_EQUAL", "text": "+", "layer": "latin_upper"},
+                    {"id": "K_EQUAL", "text": "+", "layer": "shift"},
                     {"id": "K_HYPHEN", "text": "-"},
-                    {"id": "K_8", "text": "*", "layer": "latin_upper"},
+                    {"id": "K_8", "text": "*", "layer": "shift"},
                     {"id": "K_SLASH", "text": "/"},
                     {"id": "K_BKSP", "text": "*BkSp*", "width": "100", "sp": "1"},
                 ],

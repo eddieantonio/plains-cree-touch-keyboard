@@ -173,9 +173,7 @@ class SpecialKey(Key):
         "NNBSP": dict(
             id="U_202F", text="", width=2, nextlayer="default", sp=NORMAL_KEY
         ),
-        "ABC": dict(
-            id="K_UPPER", text="*ABC*", nextlayer="latin_lower", sp=SPECIAL_KEY
-        ),  # TODO: make a latin layout
+        "ABC": dict(id="K_UPPER", text="*ABC*", nextlayer="latin", sp=SPECIAL_KEY),
         "CR": dict(id="K_ENTER", text="*Enter*", nextlayer="default", sp=SPECIAL_KEY),
         "MENU": dict(id="K_LOPT", text="*Menu*", nextlayer="default", sp=SPECIAL_KEY),
     }
