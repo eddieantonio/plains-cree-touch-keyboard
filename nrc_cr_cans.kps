@@ -40,9 +40,9 @@
     <Keyboard>
       <Name>Plains Cree Syllabics Keyboard</Name>
       <ID>nrc_cr_cans</ID>
-      <Version>0.20190719.0</Version>
+      <Version>0.20190722.0</Version>
       <Languages>
-        <Language ID="crk-Cans">Plains Cree (Unified Canadian Aboriginal Syllabics)</Language>
+        <Language ID="crk-Cans">ᓀᐦᐃᔭᐍᐏᐣ</Language>
       </Languages>
     </Keyboard>
   </Keyboards>
