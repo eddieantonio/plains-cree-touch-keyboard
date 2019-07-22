@@ -2,6 +2,7 @@ dist: xenial
 language: python
 python:
 - 3.7
+before_script: cd release/nrc/nrc_crk_cans/extras
 script: make
 
 # Deploy to GitHub releases
@@ -10,8 +11,8 @@ deploy:
   api_key:
     secure: In3M1GpU3hHKzEiuhRe+hec2XNJFIW23q/zwgohikTMGmngT+fXWpaGFQEHoPtwFL/jOassMbJ6KTSQzNsdvSvnh4D77pfDQhP9y6mV798E6l1ePsddDP8EqseMFtClWMac19Rom141FbqKmfFYHnDbtvKHS7Th+adWL8XtK0HKgiDSVKlDOIquPWi5IAxLnblltpLIHOPYzk9BXTtUpXVLdzrCQ+tkCbhlEq+R4FBS4YvuS0AZYiw5O2bUqQKnSkdfCpnVHZ+UrOdNqDeY8uLpL2Y3oISGaQ+ebRn7VFHn7lpUGwSsQ8OQwELZoFMJvOh8itxiAxe3F/EokFIfixTPbPqEcMB/Ot7oWx3AQS/y56NTRKHKQJa59dlqnUOEekqQB0ovkblagAvAmm4suFfnrmiP/3Ygfa1q6O2ZqM081fo7W8BJD5d93XxJQy2C9SFsQWYUZCiWZ9MmQUuHyaSrAc0EPNZmbHtuUC+rNCj4KFm/VX3qDkFqWkM5VRtmQCtv0FNxJUZinxpn2e6v+vVROk/BF/4sozVo10dcdjFzcxuBNGiL+F9g0+/+IfoFGElmjMd+FO3/H3+jfBQvWax3WdVco/t9MRAMrCwiHVtXJvxsCBiMLbfY7/3jEx9tN7cQwXMHXT+o2d0TO/2B24PD0yQRZpZuGj+3Lp4zzQvY=
   file:
-    - nrc_cr_cans.kmn
-    - nrc_cr_cans.keyman-touch-layout
+    - release/nrc/nrc_crk_cans/source/nrc_cr_cans.kmn
+    - release/nrc/nrc_crk_cans/source/nrc_cr_cans.keyman-touch-layout
   skip_cleanup: true
   draft: true
   on:
