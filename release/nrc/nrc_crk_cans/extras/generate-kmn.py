@@ -33,7 +33,7 @@ store(&TARGETS) 'iphone androidphone mobile'
 store(&NAME) 'Plains Cree Syllabics Keyboard'
 store(&COPYRIGHT) 'Copyright © 2019 National Research Council Canada'
 store(&KEYBOARDVERSION) '{version}'
-store(&LAYOUTFILE) 'nrc_cr_cans.keyman-touch-layout'
+store(&LAYOUTFILE) 'nrc_crk_cans.keyman-touch-layout'
 
 begin Unicode > use(main)
 group(main) using keys

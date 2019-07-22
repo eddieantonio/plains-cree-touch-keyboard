@@ -24,22 +24,22 @@
   </Info>
   <Files>
     <File>
-      <Name>nrc_cr_cans.js</Name>
-      <Description>File nrc_cr_cans.js</Description>
-      <CopyLocation>0</CopyLocation>
-      <FileType>.js</FileType>
-    </File>
-    <File>
       <Name>README.htm</Name>
       <Description>File README.htm</Description>
       <CopyLocation>0</CopyLocation>
       <FileType>.htm</FileType>
     </File>
+    <File>
+      <Name>..\build\nrc_crk_cans.js</Name>
+      <Description>File nrc_crk_cans.js</Description>
+      <CopyLocation>0</CopyLocation>
+      <FileType>.js</FileType>
+    </File>
   </Files>
   <Keyboards>
     <Keyboard>
       <Name>Plains Cree Syllabics Keyboard</Name>
-      <ID>nrc_cr_cans</ID>
+      <ID>nrc_crk_cans</ID>
       <Version>0.20190722.0</Version>
       <Languages>
         <Language ID="crk-Cans">ᓀᐦᐃᔭᐍᐏᐣ</Language>

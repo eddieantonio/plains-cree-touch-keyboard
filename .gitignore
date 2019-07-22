@@ -12,6 +12,7 @@ nrc_cr_cans.js
 *.kmx
 *.kpj.user
 *.kmp
+build/
 
 # Editor stuff:
 .vscode/
