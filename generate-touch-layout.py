@@ -337,7 +337,11 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
     # Add "latin_lower", "latin_upper", and "numeric" layers to the keyboard.
     layers.extend(LATIN_LAYERS)
 
-    phone_layout = {"font": "Euphemia", "layer": layers, "displayUnderlying": False}
+    phone_layout = {
+        "font": "Tahoma, Euphemia, Euphemia UCAS, sans-serif",
+        "layer": layers,
+        "displayUnderlying": False,
+    }
     return {"phone": phone_layout}
 
 
