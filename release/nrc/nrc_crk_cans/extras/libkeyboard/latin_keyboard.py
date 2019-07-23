@@ -116,7 +116,8 @@ LATIN_LAYERS = [
             {
                 "id": 2,
                 "key": [
-                    {"id": "K_A", "text": "A", "pad": "50"},
+                    SYLLABICS_KEY,
+                    {"id": "K_A", "text": "A"},
                     {"id": "K_S", "text": "S"},
                     {"id": "K_D", "text": "D"},
                     {"id": "K_F", "text": "F"},
