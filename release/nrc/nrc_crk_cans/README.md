@@ -15,6 +15,4 @@ Links
 Supported Platforms
 -------------------
  * Mobile Web
- * iOS
- * Android
 
