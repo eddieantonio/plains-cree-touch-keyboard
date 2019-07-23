@@ -8,6 +8,7 @@ The keyboard layers for
 """
 
 SYLLABICS_KEY = {"id": "K_SCROLL", "text": "ᓀᐦᐃᔭᐤ", "nextlayer": "default"}
+WIDE_SYLLABICS_KEY = {**SYLLABICS_KEY, "width": "150"}
 
 # Note: This was mostly copy-pasted from Keyman's default touch-optimized layout.
 LATIN_LAYERS = [
@@ -42,7 +43,6 @@ LATIN_LAYERS = [
                     {"id": "K_J", "text": "j"},
                     {"id": "K_K", "text": "k"},
                     {"id": "K_L", "text": "l"},
-                    {"id": "T_new_435", "text": "", "width": "10", "sp": "10"},
                 ],
             },
             {
@@ -126,7 +126,6 @@ LATIN_LAYERS = [
                     {"id": "K_J", "text": "J"},
                     {"id": "K_K", "text": "K"},
                     {"id": "K_L", "text": "L"},
-                    {"id": "T_new_160", "text": "", "width": "10", "sp": "10"},
                 ],
             },
             {
@@ -253,7 +252,7 @@ LATIN_LAYERS = [
             {
                 "id": 4,
                 "key": [
-                    SYLLABICS_KEY,
+                    WIDE_SYLLABICS_KEY,
                     {"id": "K_LOPT", "text": "*Menu*", "width": "120", "sp": "1"},
                     {"id": "K_SPACE", "text": "", "width": "610", "sp": "0"},
                     {"id": "K_ENTER", "text": "*Enter*", "width": "150", "sp": "1"},
