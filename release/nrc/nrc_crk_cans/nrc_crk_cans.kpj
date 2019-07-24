@@ -14,7 +14,7 @@
       <FileVersion>1.0.0</FileVersion>
       <FileType>.kmn</FileType>
       <Details>
-        <Name>Plains Cree Syllabics Keyboard</Name>
+        <Name>Plains Cree (Syllabics)</Name>
         <Copyright>Copyright © 2019 National Research Council Canada</Copyright>
       </Details>
     </File>
@@ -25,18 +25,10 @@
       <FileVersion>1.0.0</FileVersion>
       <FileType>.kps</FileType>
       <Details>
-        <Name>Plains Cree Syllabics Keyboard</Name>
+        <Name>ᓀᐦᐃᔭᐍᐏᐣ (Plains Cree Syllabics)</Name>
         <Copyright>© 2019 National Research Council Canada</Copyright>
         <Version>1.0.0</Version>
       </Details>
-    </File>
-    <File>
-      <ID>id_8da344c4cea6f467013357fe099006f5</ID>
-      <Filename>README.htm</Filename>
-      <Filepath>source\README.htm</Filepath>
-      <FileVersion></FileVersion>
-      <FileType>.htm</FileType>
-      <ParentFileID>id_42283670a0f70443682146e342beda3a</ParentFileID>
     </File>
     <File>
       <ID>id_8d3997760d7258186e2938b7992848b4</ID>
@@ -44,6 +36,14 @@
       <Filepath>source\..\build\nrc_crk_cans.js</Filepath>
       <FileVersion></FileVersion>
       <FileType>.js</FileType>
+      <ParentFileID>id_42283670a0f70443682146e342beda3a</ParentFileID>
+    </File>
+    <File>
+      <ID>id_8da344c4cea6f467013357fe099006f5</ID>
+      <Filename>readme.htm</Filename>
+      <Filepath>source\readme.htm</Filepath>
+      <FileVersion></FileVersion>
+      <FileType>.htm</FileType>
       <ParentFileID>id_42283670a0f70443682146e342beda3a</ParentFileID>
     </File>
   </Files>
