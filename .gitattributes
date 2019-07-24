@@ -1,2 +1,6 @@
+# Everything should use Unix-style line endings, except...
+*       text=auto eol=lf
+
 # Keyman Package XML should be in Windows format:
-*.kpj	eol=crlf
+*.kpj	text eol=crlf
+*.kps	text eol=crlf

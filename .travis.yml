@@ -16,8 +16,3 @@ deploy:
   on:
     repo: eddieantonio/plains-cree-touch-keyboard
     tags: true
-
-# Do not build and deploy tag- branches
-branches:
-  except:
-    - /^untagged-/
