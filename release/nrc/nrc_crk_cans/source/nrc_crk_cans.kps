@@ -6,7 +6,7 @@
   </System>
   <Options>
     <ExecuteProgram></ExecuteProgram>
-    <ReadMeFile>README.htm</ReadMeFile>
+    <ReadMeFile>readme.htm</ReadMeFile>
     <MSIFileName></MSIFileName>
     <MSIOptions></MSIOptions>
     <FollowKeyboardVersion/>
@@ -17,15 +17,15 @@
   </StartMenu>
   <Info>
     <Version URL="">1.0.0</Version>
-    <Name URL="">Plains Cree Syllabics Keyboard</Name>
+    <Name URL="">ᓀᐦᐃᔭᐍᐏᐣ (Plains Cree)</Name>
     <Copyright URL="">© 2019 National Research Council Canada</Copyright>
     <Author URL="mailto:Eddie.Santos@ncr-cnrc.gc.ca">Eddie Antonio Santos</Author>
     <WebSite URL="https://nrc.canada.ca/en/research-development/research-collaboration/programs/canadian-indigenous-languages-technology-project">https://nrc.canada.ca/en/research-development/research-collaboration/programs/canadian-indigenous-languages-technology-project</WebSite>
   </Info>
   <Files>
     <File>
-      <Name>README.htm</Name>
-      <Description>File README.htm</Description>
+      <Name>readme.htm</Name>
+      <Description>File readme.htm</Description>
       <CopyLocation>0</CopyLocation>
       <FileType>.htm</FileType>
     </File>
@@ -38,7 +38,7 @@
   </Files>
   <Keyboards>
     <Keyboard>
-      <Name>Plains Cree Syllabics Keyboard</Name>
+      <Name>ᓀᐦᐃᔭᐍᐏᐣ</Name>
       <ID>nrc_crk_cans</ID>
       <Version>1.0.0</Version>
       <Languages>
