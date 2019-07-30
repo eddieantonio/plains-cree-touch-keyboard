@@ -1,14 +1,98 @@
 """
 The keyboard layers for
 
- - latin
- - shift -- Note: This layer is special-cased in KeymanWeb!
  - numeric
+ - latin/shift -- Note: This "shift" is special-cased in KeymanWeb!
 
 """
 
 SYLLABICS_KEY = {"id": "K_SCROLL", "text": "ᓀᐦᐃᔭᐤ", "nextlayer": "default"}
 WIDE_SYLLABICS_KEY = {**SYLLABICS_KEY, "width": "150"}
+
+NUMERIC_LAYERS = [
+    {
+        "id": "numeric",
+        "row": [
+            {
+                "id": 1,
+                "key": [
+                    {"id": "K_1", "text": "1"},
+                    {"id": "K_2", "text": "2"},
+                    {"id": "K_3", "text": "3"},
+                    {"id": "K_4", "text": "4"},
+                    {"id": "K_5", "text": "5"},
+                    {"id": "K_6", "text": "6"},
+                    {"id": "K_7", "text": "7"},
+                    {"id": "K_8", "text": "8"},
+                    {"id": "K_9", "text": "9"},
+                    {"id": "K_0", "text": "0"},
+                ],
+            },
+            {
+                "id": 2,
+                "key": [
+                    {"id": "K_4", "text": "$", "pad": "50", "layer": "shift"},
+                    {"id": "K_2", "text": "@", "layer": "shift"},
+                    {"id": "K_3", "text": "#", "layer": "shift"},
+                    {"id": "K_5", "text": "%", "layer": "shift"},
+                    {"id": "K_6", "text": "&", "layer": "shift"},
+                    {"id": "K_HYPHEN", "text": "_", "layer": "shift"},
+                    {"id": "K_EQUAL", "text": "=", "layer": "latin"},
+                    {"id": "K_BKSLASH", "text": "|", "layer": "shift"},
+                    {"id": "K_BKSLASH", "text": "\\", "layer": "latin"},
+                    {"id": "T_new_228", "text": "", "width": "10", "sp": "10"},
+                ],
+            },
+            {
+                "id": 3,
+                "key": [
+                    {
+                        "id": "K_LOWER",
+                        "text": "*abc*",
+                        "width": "",
+                        "sp": "1",
+                        "nextlayer": "latin",
+                    },
+                    {
+                        "id": "K_LBRKT",
+                        "text": "[",
+                        "pad": "",
+                        "sk": [
+                            {"id": "U_00AB", "text": "«"},
+                            {"id": "K_COMMA", "text": "<", "layer": "shift"},
+                            {"id": "K_LBRKT", "text": "{", "layer": "shift"},
+                        ],
+                    },
+                    {"id": "K_9", "text": "(", "layer": "shift"},
+                    {"id": "K_0", "text": ")", "layer": "shift"},
+                    {
+                        "id": "K_RBRKT",
+                        "text": "]",
+                        "sk": [
+                            {"id": "U_00BB", "text": "»"},
+                            {"id": "K_PERIOD", "text": ">", "layer": "shift"},
+                            {"id": "K_RBRKT", "text": "}", "layer": "shift"},
+                        ],
+                    },
+                    {"id": "K_EQUAL", "text": "+", "layer": "shift"},
+                    {"id": "K_HYPHEN", "text": "-"},
+                    {"id": "K_8", "text": "*", "layer": "shift"},
+                    {"id": "K_SLASH", "text": "/"},
+                    {"id": "K_BKSP", "text": "*BkSp*", "width": "100", "sp": "1"},
+                ],
+            },
+            {
+                "id": 4,
+                "key": [
+                    WIDE_SYLLABICS_KEY,
+                    {"id": "K_LOPT", "text": "*Menu*", "width": "120", "sp": "1"},
+                    {"id": "K_SPACE", "text": "", "width": "610", "sp": "0"},
+                    {"id": "K_ENTER", "text": "*Enter*", "width": "150", "sp": "1"},
+                ],
+            },
+        ],
+    }
+]
 
 # Note: This was mostly copy-pasted from Keyman's default touch-optimized layout.
 LATIN_LAYERS = [
@@ -171,88 +255,6 @@ LATIN_LAYERS = [
                         "sp": "1",
                         "nextlayer": "numeric",
                     },
-                    {"id": "K_LOPT", "text": "*Menu*", "width": "120", "sp": "1"},
-                    {"id": "K_SPACE", "text": "", "width": "610", "sp": "0"},
-                    {"id": "K_ENTER", "text": "*Enter*", "width": "150", "sp": "1"},
-                ],
-            },
-        ],
-    },
-    {
-        "id": "numeric",
-        "row": [
-            {
-                "id": 1,
-                "key": [
-                    {"id": "K_1", "text": "1"},
-                    {"id": "K_2", "text": "2"},
-                    {"id": "K_3", "text": "3"},
-                    {"id": "K_4", "text": "4"},
-                    {"id": "K_5", "text": "5"},
-                    {"id": "K_6", "text": "6"},
-                    {"id": "K_7", "text": "7"},
-                    {"id": "K_8", "text": "8"},
-                    {"id": "K_9", "text": "9"},
-                    {"id": "K_0", "text": "0"},
-                ],
-            },
-            {
-                "id": 2,
-                "key": [
-                    {"id": "K_4", "text": "$", "pad": "50", "layer": "shift"},
-                    {"id": "K_2", "text": "@", "layer": "shift"},
-                    {"id": "K_3", "text": "#", "layer": "shift"},
-                    {"id": "K_5", "text": "%", "layer": "shift"},
-                    {"id": "K_6", "text": "&", "layer": "shift"},
-                    {"id": "K_HYPHEN", "text": "_", "layer": "shift"},
-                    {"id": "K_EQUAL", "text": "=", "layer": "latin"},
-                    {"id": "K_BKSLASH", "text": "|", "layer": "shift"},
-                    {"id": "K_BKSLASH", "text": "\\", "layer": "latin"},
-                    {"id": "T_new_228", "text": "", "width": "10", "sp": "10"},
-                ],
-            },
-            {
-                "id": 3,
-                "key": [
-                    {
-                        "id": "K_LOWER",
-                        "text": "*abc*",
-                        "width": "",
-                        "sp": "1",
-                        "nextlayer": "latin",
-                    },
-                    {
-                        "id": "K_LBRKT",
-                        "text": "[",
-                        "pad": "",
-                        "sk": [
-                            {"id": "U_00AB", "text": "«"},
-                            {"id": "K_COMMA", "text": "<", "layer": "shift"},
-                            {"id": "K_LBRKT", "text": "{", "layer": "shift"},
-                        ],
-                    },
-                    {"id": "K_9", "text": "(", "layer": "shift"},
-                    {"id": "K_0", "text": ")", "layer": "shift"},
-                    {
-                        "id": "K_RBRKT",
-                        "text": "]",
-                        "sk": [
-                            {"id": "U_00BB", "text": "»"},
-                            {"id": "K_PERIOD", "text": ">", "layer": "shift"},
-                            {"id": "K_RBRKT", "text": "}", "layer": "shift"},
-                        ],
-                    },
-                    {"id": "K_EQUAL", "text": "+", "layer": "shift"},
-                    {"id": "K_HYPHEN", "text": "-"},
-                    {"id": "K_8", "text": "*", "layer": "shift"},
-                    {"id": "K_SLASH", "text": "/"},
-                    {"id": "K_BKSP", "text": "*BkSp*", "width": "100", "sp": "1"},
-                ],
-            },
-            {
-                "id": 4,
-                "key": [
-                    WIDE_SYLLABICS_KEY,
                     {"id": "K_LOPT", "text": "*Menu*", "width": "120", "sp": "1"},
                     {"id": "K_SPACE", "text": "", "width": "610", "sp": "0"},
                     {"id": "K_ENTER", "text": "*Enter*", "width": "150", "sp": "1"},

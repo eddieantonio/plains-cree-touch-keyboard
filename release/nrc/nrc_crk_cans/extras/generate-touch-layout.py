@@ -12,7 +12,7 @@ import re
 import sys
 
 from libkeyboard.ioutils import setup_output
-from libkeyboard.latin_keyboard import LATIN_LAYERS
+from libkeyboard.alternate_keyboard_layers import LATIN_LAYERS, NUMERIC_LAYERS
 from libkeyboard.plains_cree_constants import COMBINING_CONSONANTS, VOWELS
 from libkeyboard.syllabics import SYLLABICS
 
@@ -293,7 +293,9 @@ def parse_ascii_layout(layout: str) -> list:
     return keyboard
 
 
-def create_keyman_touch_layout_json(keyboard: list, include_latin: bool = False) -> dict:
+def create_keyman_touch_layout_json(
+    keyboard: list, include_latin: bool = False
+) -> dict:
     """
     Returns a JSON-serializable dictionary that describes a touch-layout for
     phones in the format that KeymanWeb requires.
@@ -334,7 +336,10 @@ def create_keyman_touch_layout_json(keyboard: list, include_latin: bool = False)
 
             layers.append(dict(id=layer_id, row=layout_rows))
 
-    # Add "latin_lower", "latin_upper", and "numeric" layers to the keyboard.
+    # Add the "numeric" layer(s) to the keyboard:
+    layers.extend(NUMERIC_LAYERS)
+
+    # Add "latin", "shift", and "numeric" layers to the keyboard.
     if include_latin:
         layers.extend(LATIN_LAYERS)
 
@@ -351,10 +356,11 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('outfile', nargs='?')
-    parser.add_argument('--with-latin', action='store_true', dest='latin',
-                        default=False)
-    parser.add_argument('--without-latin', action='store_false', dest='latin')
+    parser.add_argument("outfile", nargs="?")
+    parser.add_argument(
+        "--with-latin", action="store_true", dest="latin", default=False
+    )
+    parser.add_argument("--without-latin", action="store_false", dest="latin")
     args = parser.parse_args()
     setup_output(args.outfile)
 
