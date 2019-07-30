@@ -9,8 +9,12 @@
 
 import sys
 
+# Sentinel value lets you know if filename was not provided as arguments at
+# all.
+_unspecified = object()
 
-def setup_output(parser=None):
+
+def setup_output(filename: str = _unspecified):
     """
     Sets up output based on command line arguments.
 
@@ -19,28 +23,17 @@ def setup_output(parser=None):
 
     If no arguments are passed, then output is directed to stdout.
 
-    This can also take an argument parser instance, and it will add an
-    optional "outfile" positional argument.
-
     stdout is always opened in UTF-8, regardless of system settings. This is
     mostly only an issue in Windows, where the encoding often defaults to some
     weird CP12?? that is incompatible with Candian Aboriginal Syllabics 😡
     """
 
-    if parser is not None:
-        parser.add_argument('outfile', nargs='?')
-        args = parser.parse_args()
-        if args.outfile:
-            sys.stdout = open(args.outfile, "w", encoding="UTF-8")
-        else:
-          _setup_stdout_utf8()
-        return args
-    elif len(sys.argv) == 2:
-        # Assume the first argument is a file to overwrite
-        sys.stdout = open(sys.argv[1], "w", encoding="UTF-8")
-    else:
-      _setup_stdout_utf8()
+    if filename is _unspecified and len(sys.argv) == 2:
+        filename = sys.argv[1]
 
-def _setup_stdout_utf8():
-    # To prevent Windows from using CP1252 or something dumb:
-    sys.stdout.reconfigure(encoding="UTF-8")
+    if filename:
+        # Assume the first argument is a file to overwrite
+        sys.stdout = open(filename, "w", encoding="UTF-8")
+    else:
+        # To prevent Windows from using CP1252 or something dumb:
+        sys.stdout.reconfigure(encoding="UTF-8")

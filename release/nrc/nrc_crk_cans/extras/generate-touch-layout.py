@@ -351,10 +351,12 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
+    parser.add_argument('outfile', nargs='?')
     parser.add_argument('--with-latin', action='store_true', dest='latin',
                         default=False)
     parser.add_argument('--without-latin', action='store_false', dest='latin')
-    args = setup_output(parser)
+    args = parser.parse_args()
+    setup_output(args.outfile)
 
     # Parse the table of syllabics, as well as the keyboard layout.
     keyboard = parse_ascii_layout(LAYOUT)

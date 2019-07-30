@@ -26,10 +26,13 @@ version = f"1.0.0"
 
 
 parser = argparse.ArgumentParser()
+parser.add_argument('outfile', nargs='?')
 parser.add_argument('--with-css', action='store_true', dest='css', default=False)
 parser.add_argument('--without-css', action='store_false', dest='css')
+args = parser.parse_args()
+setup_output(args.outfile)
 
-args = setup_output(parser)
+# Embedd CSS when --with-css is provided:
 css_line = "store(&KMW_EMBEDCSS) 'nrc_crk_cans.css'".strip() if args.css else ''
 
 print(f"""
