@@ -293,7 +293,7 @@ def parse_ascii_layout(layout: str) -> list:
     return keyboard
 
 
-def create_keyman_touch_layout_json(keyboard: list) -> dict:
+def create_keyman_touch_layout_json(keyboard: list, include_latin: bool = False) -> dict:
     """
     Returns a JSON-serializable dictionary that describes a touch-layout for
     phones in the format that KeymanWeb requires.
@@ -335,7 +335,8 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
             layers.append(dict(id=layer_id, row=layout_rows))
 
     # Add "latin_lower", "latin_upper", and "numeric" layers to the keyboard.
-    layers.extend(LATIN_LAYERS)
+    if include_latin:
+        layers.extend(LATIN_LAYERS)
 
     phone_layout = {
         "font": "Tahoma, Euphemia, Euphemia UCAS, sans-serif",
@@ -347,12 +348,17 @@ def create_keyman_touch_layout_json(keyboard: list) -> dict:
 
 #################################### Main ####################################
 if __name__ == "__main__":
-    # Setup output, either to stdout or
-    setup_output()
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--with-latin', action='store_true', dest='latin',
+                        default=False)
+    parser.add_argument('--without-latin', action='store_false', dest='latin')
+    args = setup_output(parser)
 
     # Parse the table of syllabics, as well as the keyboard layout.
     keyboard = parse_ascii_layout(LAYOUT)
 
-    layout = create_keyman_touch_layout_json(keyboard)
+    layout = create_keyman_touch_layout_json(keyboard, include_latin=args.latin)
     json.dump(layout, sys.stdout, indent=2, ensure_ascii=False)
     print()
