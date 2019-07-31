@@ -1,7 +1,10 @@
 KEYBOARD_NAME = nrc_crk_cans
 
 TOUCH_LAYOUT = $(OUTDIR)/$(KEYBOARD_NAME).keyman-touch-layout
-KEY_LAYOUT = $(OUTDIR)/$(KEYBOARD_NAME).kmn
+KMN = $(OUTDIR)/$(KEYBOARD_NAME).kmn
+
+KMN_OPTIONS =
+LAYOUT_OPTIONS =
 
 # Assuming that we're in extras/
 # we should place the touch layout and keyboard code in source/
@@ -12,13 +15,13 @@ DATA = libkeyboard/syllabics.tsv
 # You gotta chown(1) all of dem first:
 LIBS = $(wildcard libkeyboard/*.py)
 
-all: $(TOUCH_LAYOUT) $(KEY_LAYOUT)
+all: $(TOUCH_LAYOUT) $(KMN)
 
 $(TOUCH_LAYOUT): ./generate-touch-layout.py $(LIBS) $(DATA)
-	./$< $@
+	./$< $(LAYOUT_OPTIONS) $@
 
-$(KEY_LAYOUT): ./generate-kmn.py $(LIBS) $(DATA)
-	./$< $@
+$(KMN): ./generate-kmn.py $(LIBS) $(DATA)
+	./$< $(KMN_OPTIONS) $@
 
 format:
 	black $(wildcard *.py) $(LIBS)
