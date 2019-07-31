@@ -317,11 +317,6 @@ def create_keyman_touch_layout_json(
                     key.dictionary_for_key_with_mode(mode, consonant) for key in row
                 ]
 
-                # TODO: add on to this pile of hacks...
-                # only give a width and padding for nnbsp and space keys :/
-                # So apparently, key width is supposed to add up to 100 * number of keys..
-                # when the key is greater than 100, you have to add padding (default 5)
-
                 # Post-process the keys:
                 # Implement workarounds to make the layout render correctly
                 for _index, key in enumerate(keys):
@@ -331,6 +326,12 @@ def create_keyman_touch_layout_json(
                         key["width"] = str(key["width"])
                     if "pad" in key:
                         key["pad"] = str(PADDING_BETWEEN)
+
+                    # Replace the *ABC* key with a space when the Latin
+                    # layers are not included.
+                    if not include_latin and key['text'] == "*ABC*":
+                        key.update(text="", sp=BLANK_KEY)
+                        del key["nextlayer"]
 
                 layout_rows.append({"id": rowid, "key": keys})
 
