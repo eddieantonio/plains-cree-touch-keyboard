@@ -316,23 +316,6 @@ def create_keyman_touch_layout_json(
                 keys = [
                     key.dictionary_for_key_with_mode(mode, consonant) for key in row
                 ]
-
-                # Post-process the keys:
-                # Implement workarounds to make the layout render correctly
-                for _index, key in enumerate(keys):
-                    # Bug 🐛 in KeymanWeb: width and pad MUST be strings 🙃
-                    # https://github.com/keymanapp/keyman/issues/119
-                    if "width" in key:
-                        key["width"] = str(key["width"])
-                    if "pad" in key:
-                        key["pad"] = str(PADDING_BETWEEN)
-
-                    # Replace the *ABC* key with a space when the Latin
-                    # layers are not included.
-                    if not include_latin and key['text'] == "*ABC*":
-                        key.update(text="", sp=BLANK_KEY)
-                        del key["nextlayer"]
-
                 layout_rows.append({"id": rowid, "key": keys})
 
             layers.append(dict(id=layer_id, row=layout_rows))
@@ -344,12 +327,48 @@ def create_keyman_touch_layout_json(
     if include_latin:
         layers.extend(LATIN_LAYERS)
 
+    # Post-process the keyboard.
+    for layer in layers:
+        for row in layer['row']:
+            post_process_keys(row['key'], include_latin)
+
     phone_layout = {
         "font": "Tahoma, Euphemia, Euphemia UCAS, sans-serif",
         "layer": layers,
         "displayUnderlying": False,
     }
     return {"phone": phone_layout}
+
+
+def post_process_keys(keys, include_latin: bool):
+    """
+    Do some post-processing on the keys like:
+
+     - converting all width and padding values to string (to account for a KMW
+       bug)
+     - removing the Latin keyboard, when applicable.
+    """
+    # Implement workarounds to make the layout render correctly
+    for _index, key in enumerate(keys):
+        # Bug 🐛 in KeymanWeb: width and pad MUST be strings 🙃
+        # https://github.com/keymanapp/keyman/issues/119
+        if "width" in key:
+            key["width"] = str(key["width"])
+        if "pad" in key:
+            key["pad"] = str(PADDING_BETWEEN)
+
+        # Replace the *ABC* key with a space when the Latin
+        # layers are not included.
+        if not include_latin and is_latin_mode_switch_key(key):
+            key.update(text="", sp=BLANK_KEY)
+            del key["nextlayer"]
+
+
+def is_latin_mode_switch_key(key):
+    """
+    Returns True when the given key is intended to switch into a Latin layer.
+    """
+    return key['text'] in ('*ABC*', '*abc*')
 
 
 #################################### Main ####################################
