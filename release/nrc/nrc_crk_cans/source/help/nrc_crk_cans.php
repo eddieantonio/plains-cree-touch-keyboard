@@ -1,6 +1,6 @@
 <?php 
-  $pagename = 'ᓀᐦᐃᔭᐍᐏᐣ (Plains Cree) Syllabics Keyboard Help';
-  $pagetitle = 'ᓀᐦᐃᔭᐍᐏᐣ (Plains Cree) Syllabics Keyboard Help';
+  $pagename = 'ᓀᐦᐃᔭᐍᐏᐣ (Plains Cree Syllabics) Keyboard Help';
+  $pagetitle = 'ᓀᐦᐃᔭᐍᐏᐣ (Plains Cree Syllabics) Keyboard Help';
   $pagestyle = <<<END
   
 .lang2 {font-family:"Euphemia UACS", Euphemia, sans-serif}
@@ -21,4 +21,4 @@ END;
 </ul>
 
 <h2>Keyboard Layout</h2>
-<div id="osk-phone" data-states='default shift numeric'></div>
+<div id="osk-phone" data-states='default numeric'></div>
