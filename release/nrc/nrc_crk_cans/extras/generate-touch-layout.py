@@ -71,6 +71,7 @@ SPECIAL_KEY = "1"  # for ABC, 123, Enter, BS, etc.
 ACTIVE_KEY = "2"  # for non-default vowel syllabics
 DEAD_KEY = "8"  # for active consonant/w.
 BLANK_KEY = "9"  # placeholder for missing nwV syllabics
+SPACER = "10"  # an empty space, the size of a key
 
 ALWAYS_RETURN_TO_DEFAULT_LAYER = {"hk", "l", "r", "h"}
 
@@ -360,7 +361,7 @@ def post_process_keys(keys, include_latin: bool):
         # Replace the *ABC* key with a space when the Latin
         # layers are not included.
         if not include_latin and is_latin_mode_switch_key(key):
-            key.update(text="", sp=BLANK_KEY)
+            key.update(text="", sp=SPACER)
             del key["nextlayer"]
 
 
