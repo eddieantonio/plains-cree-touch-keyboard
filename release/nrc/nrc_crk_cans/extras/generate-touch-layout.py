@@ -53,8 +53,8 @@ from libkeyboard.syllabics import SYLLABICS
 # [Santos n.d.]: https://gist.github.com/eddieantonio/1b0f25f1c6d78e6dfb611f490a0822c7#file-unigrams-tsv
 LAYOUT = """
 [  hk ] [  m   ] [ n ] [ y ] [ w ] [ i ] [ î ] [  ô ]
-[  l  ] [  p   ] [ t ] [ s ] [ â ] [ a ] [ o ] [  r ]
-[ ABC ] [  c   ] [ k ] [  NNBSP  ] [ ê ] [ h ] [ BS ]
+[  l  ] [  p   ] [ k ] [ s ] [ â ] [ a ] [ o ] [  r ]
+[ ABC ] [  c   ] [ t ] [  NNBSP  ] [ ê ] [ h ] [ BS ]
 [ 123 ] [ MENU ] [         SP          ] [ . ] [ CR ]
 """
 
