@@ -60,8 +60,8 @@ LAYOUT = """
 
 # Keyman defines each key's width as being 100 units.
 # The default padding is 5 units.
-SLOT_WIDTH = 105  # How much width each "slot" occupies
-PADDING_BETWEEN = 5  # How much of the slot is just the padding.
+SLOT_WIDTH = 115  # How much width each "slot" occupies
+PADDING_BETWEEN = 15  # How much of the slot is just the padding.
 KEY_WIDTH = SLOT_WIDTH - PADDING_BETWEEN  # How much of the slot is the key itself
 
 # Key types
@@ -189,6 +189,7 @@ class SpecialKey(Key):
         )
         if self.proportional_width > 1:
             key.update(width=self.effective_width)
+
         return key
 
     @property
