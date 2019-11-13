@@ -2,6 +2,8 @@ dist: xenial
 language: python
 python:
 - 3.7
+env:
+   - KMN_OPTIONS="--with-vowel-hack --with-css"
 script: make -C release/nrc/nrc_crk_cans/extras
 
 # Deploy to GitHub releases
