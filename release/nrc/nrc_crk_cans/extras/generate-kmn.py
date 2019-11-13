@@ -29,11 +29,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument("outfile", nargs="?")
 parser.add_argument("--with-css", action="store_true", dest="css", default=False)
 parser.add_argument("--without-css", action="store_false", dest="css")
+parser.add_argument("--with-vowel-hack", action="store_true", dest="vowel_hack", default=False)
+parser.add_argument("--without-vowel-hack", action="store_false", dest="vowel_hack")
 args = parser.parse_args()
 setup_output(args.outfile)
 
 # Embedd CSS when --with-css is provided:
-css_line = "store(&KMW_EMBEDCSS) 'nrc_crk_cans.css'".strip() if args.css else ""
+css_line = "store(&KMW_EMBEDCSS) 'nrc_crk_cans.css'" if args.css else ""
 
 # Map a "prefix" (consonants of a syllable) to all of its syllabics.
 # kwV -> set of ᑵᑷᑹᑻᑽᑿᒁ
@@ -92,6 +94,9 @@ def print_syllabic_rule(sro, syllabic, accept_syllabic=None):
     print(f"  {context} + [{keycode}] > {composed_syllable} layer('default')", end=" ")
     print(f"c {final}{w} + [ {accept_syllabic} ] > {syllabic}")
 
+def is_non_w_syllable(sro):
+    return len(sro) == 3 or (len(sro) == 2 and 'w' not in sro)
+
 # Generate rules that replace a final and a vowel with the composed syllabic
 #    U+XXXX + [U_YYYY] > U+YYYY layer('default')
 #   e.g. when [ ᐘ ] has been pressed following a ᐤ, insert ᐘ and switch to 'default' layer.
@@ -104,7 +109,7 @@ for sro, syllabic in SYLLABICS.items():
     print_syllabic_rule(sro, syllabic)
     # Create a hacky rule that allows for a standalone vowel to convert into
     # the correct syllable.
-    if len(sro) == 3 or (len(sro) == 2 and 'w' not in sro):
+    if args.vowel_hack and is_non_w_syllable(sro):
         vowel = SYLLABICS[syllabic.vowel]
         print_syllabic_rule(sro, syllabic, vowel)
 
