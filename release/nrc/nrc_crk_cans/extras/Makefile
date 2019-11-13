@@ -3,8 +3,8 @@ KEYBOARD_NAME = nrc_crk_cans
 TOUCH_LAYOUT = $(OUTDIR)/$(KEYBOARD_NAME).keyman-touch-layout
 KMN = $(OUTDIR)/$(KEYBOARD_NAME).kmn
 
-KMN_OPTIONS =
-LAYOUT_OPTIONS =
+KMN_OPTIONS := $(or $(KMN_OPTIONS), --without-css --without-vowel-hack)
+LAYOUT_OPTIONS :=  $(or $(LAYOUT_OPTIONS), --without-latin)
 
 # Assuming that we're in extras/
 # we should place the touch layout and keyboard code in source/
