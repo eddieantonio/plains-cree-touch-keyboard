@@ -45,6 +45,13 @@ class Syllabic(NamedTuple):
     def as_character(self):
         return f"U+{self.scalar_value:04X}"
 
+    @property
+    def prefix(self):
+        naive_prefix = self.sro.rstrip('êioaîôâ')
+        if naive_prefix == self.sro:
+            return ''
+        return naive_prefix
+
     @classmethod
     def from_tsv(cls, row):
         return cls(
