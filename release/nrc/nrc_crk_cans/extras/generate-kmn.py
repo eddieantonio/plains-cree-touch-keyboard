@@ -35,6 +35,7 @@ setup_output(args.outfile)
 # Embedd CSS when --with-css is provided:
 css_line = "store(&KMW_EMBEDCSS) 'nrc_crk_cans.css'".strip() if args.css else ""
 
+# Map a "prefix" (consonants of a syllable) to all of its syllabics.
 # kwV -> set of ᑵᑷᑹᑻᑽᑿᒁ
 prefix2syllabics = defaultdict(set)
 for syllabic in SYLLABICS.values():
@@ -44,6 +45,13 @@ for syllabic in SYLLABICS.values():
     prefix = prefix + 'V'
     prefix2syllabics[prefix].add(syllabic.cans)
 
+# 
+any_rules = {}
+for syllabic in SYLLABICS.values():
+    if syllabic.type != 'syllable':
+        continue
+    inherent_vowel = SYLLABICS[syllabic.vowel].cans
+    any_rules[syllabic] = inherent_vowel + syllabic.cans
 
 
 print(
@@ -64,6 +72,14 @@ for prefix, syllabics in prefix2syllabics.items():
     syllabics_list = ''.join(sorted(syllabics))
     print(f"store({prefix}) '{syllabics_list}'")
 
+print()
+
+print("c These stores account for when a valid prefix exist,")
+print("c but they keyboard is in the wrong layer.")
+for syllabic, syllabics in any_rules.items():
+    name = syllabic.sro
+    print(f"store({name}) '{syllabics}'")
+
 print(
     f"""
 begin Unicode > use(main)
@@ -82,7 +98,6 @@ for sro, syllabic in SYLLABICS.items():
 
     final = SYLLABICS[sro[0]]
     keycode = syllabic.as_keycode
-    composed_syllable = syllabic.as_character
 
     if len(sro) == 2:
         w = ""
@@ -92,7 +107,8 @@ for sro, syllabic in SYLLABICS.items():
         w = " ᐤ"
         context = f"{final.as_character} {SYLLABICS['w'].as_character}"
 
-    print(f"  {context} + [{keycode}] > {composed_syllable} layer('default')", end=" ")
+    reference = syllabic.sro
+    print(f"  {context} + [{keycode}] > any({reference}) layer('default')", end=" ")
     print(f"c {final}{w} + [ {syllabic} ] > {syllabic}")
 
 # Rules that decompose a syllable + backspace into its component consonants
@@ -101,7 +117,3 @@ for prefix in prefix2syllabics:
     consonants = prefix[:-1]
     consonant_chars = ' '.join(SYLLABICS[c].as_character for c in consonants)
     print(f"  any({prefix}) + [K_BKSP] > {consonant_chars} layer('{prefix}')")
-
-# TODO: have some CHEESE lines that (disabled by default) handle FINAL + VOWEL
-# and convert them to the appropriate syllabic to make up for the keyboard
-# switching delay :/

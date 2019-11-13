@@ -20,6 +20,7 @@ from pathlib import Path
 __all__ = ["SYLLABICS"]
 here = Path(__file__).parent
 
+VOWELS = 'êioaîôâ'
 
 class Syllabic(NamedTuple):
     """
@@ -46,11 +47,29 @@ class Syllabic(NamedTuple):
         return f"U+{self.scalar_value:04X}"
 
     @property
+    def type(self):
+        if len(self.sro) == 1:
+            if self.sro in VOWELS:
+                return 'vowel'
+            else:
+                return  'consonant'
+        else:
+            return 'syllable'
+
+    @property
     def prefix(self):
-        naive_prefix = self.sro.rstrip('êioaîôâ')
+        naive_prefix = self.sro.rstrip(VOWELS)
         if naive_prefix == self.sro:
             return ''
         return naive_prefix
+
+    @property
+    def vowel(self):
+        if self.type == 'syllable':
+            return self.sro[-1]
+        elif self.type == 'vowel':
+            return self.sro
+        raise ValueError(f"no vowel in {self}")
 
     @classmethod
     def from_tsv(cls, row):
