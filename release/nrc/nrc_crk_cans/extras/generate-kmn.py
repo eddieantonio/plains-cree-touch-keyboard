@@ -45,14 +45,6 @@ for syllabic in SYLLABICS.values():
     prefix = prefix + 'V'
     prefix2syllabics[prefix].add(syllabic.cans)
 
-# 
-any_rules = {}
-for syllabic in SYLLABICS.values():
-    if syllabic.type != 'syllable':
-        continue
-    inherent_vowel = SYLLABICS[syllabic.vowel].cans
-    any_rules[syllabic] = inherent_vowel + syllabic.cans
-
 
 print(
     f"""
@@ -74,18 +66,31 @@ for prefix, syllabics in prefix2syllabics.items():
 
 print()
 
-print("c These stores account for when a valid prefix exist,")
-print("c but they keyboard is in the wrong layer.")
-for syllabic, syllabics in any_rules.items():
-    name = syllabic.sro
-    print(f"store({name}) '{syllabics}'")
-
 print(
     f"""
 begin Unicode > use(main)
 group(main) using keys
 """
 )
+
+def print_syllabic_rule(sro, syllabic, accept_syllabic=None):
+    if accept_syllabic is None:
+        accept_syllabic = syllabic
+
+    final = SYLLABICS[sro[0]]
+    keycode = accept_syllabic.as_keycode
+    composed_syllable = syllabic.as_character
+
+    if len(sro) == 2:
+        w = ""
+        context = final.as_character
+    else:
+        assert len(sro) == 3 and sro[1] == "w"
+        w = " ᐤ"
+        context = f"{final.as_character} {SYLLABICS['w'].as_character}"
+
+    print(f"  {context} + [{keycode}] > {composed_syllable} layer('default')", end=" ")
+    print(f"c {final}{w} + [ {accept_syllabic} ] > {syllabic}")
 
 # Generate rules that replace a final and a vowel with the composed syllabic
 #    U+XXXX + [U_YYYY] > U+YYYY layer('default')
@@ -96,20 +101,12 @@ for sro, syllabic in SYLLABICS.items():
     if not sro.startswith((*COMBINING_CONSONANTS, "w")):
         continue
 
-    final = SYLLABICS[sro[0]]
-    keycode = syllabic.as_keycode
-
-    if len(sro) == 2:
-        w = ""
-        context = final.as_character
-    else:
-        assert len(sro) == 3 and sro[1] == "w"
-        w = " ᐤ"
-        context = f"{final.as_character} {SYLLABICS['w'].as_character}"
-
-    reference = syllabic.sro
-    print(f"  {context} + [{keycode}] > any({reference}) layer('default')", end=" ")
-    print(f"c {final}{w} + [ {syllabic} ] > {syllabic}")
+    print_syllabic_rule(sro, syllabic)
+    # Create a hacky rule that allows for a standalone vowel to convert into
+    # the correct syllable.
+    if len(sro) == 3 or (len(sro) == 2 and 'w' not in sro):
+        vowel = SYLLABICS[syllabic.vowel]
+        print_syllabic_rule(sro, syllabic, vowel)
 
 # Rules that decompose a syllable + backspace into its component consonants
 print("  c Backspace rules: break apart a syllable on backspace")
