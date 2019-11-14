@@ -21,7 +21,7 @@ from libkeyboard.syllabics import SYLLABICS
 
 # The version number:
 # Initial release is 1.0.0
-name = "Plains Cree (Syllabics)"
+name = "Cree Syllabics"
 version = f"1.0.0"
 
 
