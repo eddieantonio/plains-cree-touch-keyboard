@@ -132,7 +132,7 @@ class VowelKey(Key):
         else:
             result = dict(id=syllabic.key_code, text=syllabic.cans, nextlayer="default")
             # Highlight the vowels that have changed.
-            if consonant:
+            if consonant or sro.startswith('w'):
                 result.update(sp=ACTIVE_KEY)
             return result
 
