@@ -335,8 +335,11 @@ def create_keyman_touch_layout_json(
             post_process_keys(row['key'], include_latin)
 
     phone_layout = {
-        "font": "Tahoma, Euphemia, Euphemia UCAS, sans-serif",
+        "font": "Noto Sans, Gadugi, Euphemia, Euphemia UCAS, Tahoma, sans-serif",
         "layer": layers,
+        # I'm not super sure what this flag is even supposed to do, but here's
+        # the code that implements it ¯\_(ツ)_/¯
+        # https://github.com/keymanapp/keyman/blob/eeb797bf124718559479622dff6031cfe78477f3/windows/src/developer/TIKE/xml/layoutbuilder/builder.js
         "displayUnderlying": False,
     }
     return {"phone": phone_layout}
