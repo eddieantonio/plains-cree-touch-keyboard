@@ -29,7 +29,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument("outfile", nargs="?")
 parser.add_argument("--with-css", action="store_true", dest="css", default=False)
 parser.add_argument("--without-css", action="store_false", dest="css")
-parser.add_argument("--with-vowel-hack", action="store_true", dest="vowel_hack", default=False)
+parser.add_argument(
+    "--with-vowel-hack", action="store_true", dest="vowel_hack", default=False
+)
 parser.add_argument("--without-vowel-hack", action="store_false", dest="vowel_hack")
 args = parser.parse_args()
 setup_output(args.outfile)
@@ -44,7 +46,7 @@ for syllabic in SYLLABICS.values():
     prefix = syllabic.prefix
     if not prefix:
         continue
-    prefix = prefix + 'V'
+    prefix = prefix + "V"
     prefix2syllabics[prefix].add(syllabic.cans)
 
 
@@ -63,7 +65,7 @@ store(&LAYOUTFILE) 'nrc_crk_cans.keyman-touch-layout'
 
 print("c These are used for backspace rules:")
 for prefix, syllabics in prefix2syllabics.items():
-    syllabics_list = ''.join(sorted(syllabics))
+    syllabics_list = "".join(sorted(syllabics))
     print(f"store({prefix}) '{syllabics_list}'")
 
 print()
@@ -74,6 +76,7 @@ begin Unicode > use(main)
 group(main) using keys
 """
 )
+
 
 def print_syllabic_rule(sro, syllabic, accept_syllabic=None):
     if accept_syllabic is None:
@@ -94,8 +97,10 @@ def print_syllabic_rule(sro, syllabic, accept_syllabic=None):
     print(f"  {context} + [{keycode}] > {composed_syllable} layer('default')", end=" ")
     print(f"c {final}{w} + [ {accept_syllabic} ] > {syllabic}")
 
+
 def is_non_w_syllable(sro):
-    return len(sro) == 3 or (len(sro) == 2 and 'w' not in sro)
+    return len(sro) == 3 or (len(sro) == 2 and "w" not in sro)
+
 
 # Generate rules that replace a final and a vowel with the composed syllabic
 #    U+XXXX + [U_YYYY] > U+YYYY layer('default')
@@ -117,5 +122,5 @@ for sro, syllabic in SYLLABICS.items():
 print("  c Backspace rules: break apart a syllable on backspace")
 for prefix in prefix2syllabics:
     consonants = prefix[:-1]
-    consonant_chars = ' '.join(SYLLABICS[c].as_character for c in consonants)
+    consonant_chars = " ".join(SYLLABICS[c].as_character for c in consonants)
     print(f"  any({prefix}) + [K_BKSP] > {consonant_chars} layer('{prefix}')")

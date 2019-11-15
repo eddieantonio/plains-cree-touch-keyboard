@@ -132,7 +132,7 @@ class VowelKey(Key):
         else:
             result = dict(id=syllabic.key_code, text=syllabic.cans, nextlayer="default")
             # Highlight the vowels that have changed.
-            if consonant or sro.startswith('w'):
+            if consonant or sro.startswith("w"):
                 result.update(sp=ACTIVE_KEY)
             return result
 
@@ -331,8 +331,8 @@ def create_keyman_touch_layout_json(
 
     # Post-process the keyboard.
     for layer in layers:
-        for row in layer['row']:
-            post_process_keys(row['key'], include_latin)
+        for row in layer["row"]:
+            post_process_keys(row["key"], include_latin)
 
     phone_layout = {
         "font": "Noto Sans, Gadugi, Euphemia, Euphemia UCAS, Tahoma, sans-serif",
@@ -373,7 +373,7 @@ def is_latin_mode_switch_key(key):
     """
     Returns True when the given key is intended to switch into a Latin layer.
     """
-    return key['text'] in ('*ABC*', '*abc*')
+    return key["text"] in ("*ABC*", "*abc*")
 
 
 #################################### Main ####################################
