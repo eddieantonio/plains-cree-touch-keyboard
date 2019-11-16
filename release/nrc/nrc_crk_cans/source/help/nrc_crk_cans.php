@@ -3,7 +3,7 @@
   $pagetitle = 'ᓀᐦᐃᔭᐍᐏᐣ (Cree Syllabics) Keyboard Help';
   $pagestyle = <<<END
 
-.lang2 {font-family:"Noto Sans", "Gadugi", "Euphemia UACS", Euphemia, sans-serif}
+.lang2, [lang=cr], [lang=crk] {font-family:"Noto Sans", "Gadugi", "Euphemia UACS", Euphemia, sans-serif}
 kbd { display: inline-block; box-sizing: border-box; border-radius: 4px; min-width: 1.5em; padding: 0 .25em; background-color: #EEE; text-align: center; box-shadow: 0 1px 1px 1px rgba(0,0,0,0.2); }
 kbd.special { padding: .1rem .25rem; font-size: small; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; }
 kbd.spacebar { min-width: 4em }
