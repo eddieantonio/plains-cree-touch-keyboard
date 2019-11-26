@@ -20,9 +20,8 @@ from libkeyboard.syllabics import SYLLABICS
 
 
 # The version number:
-# Initial release is 1.0.0
 name = "Cree Syllabics"
-version = f"1.0.0"
+version = f"1.0.1"
 
 
 parser = argparse.ArgumentParser()
