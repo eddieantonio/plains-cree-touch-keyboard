@@ -169,14 +169,16 @@ class SpecialKey(Key):
 
     SETTINGS = {
         "SP": dict(id="K_SPACE", text="", width=4, nextlayer="default", sp=NORMAL_KEY),
-        "BS": dict(id="K_BKSP", text="*BkSp*", nextlayer="default", sp=SPECIAL_KEY),
+        # BS should not ALWAYS return to default layer:
+        # See: https://github.com/keymanapp/keyman/issues/2349#issuecomment-558459256
+        "BS": dict(id="K_BKSP", text="*BkSp*", sp=SPECIAL_KEY),
         "123": dict(id="K_NUMLOCK", text="*123*", nextlayer="numeric", sp=SPECIAL_KEY),
         "NNBSP": dict(
             id="U_202F", text="", width=2, nextlayer="default", sp=NORMAL_KEY
         ),
         "ABC": dict(id="K_UPPER", text="*ABC*", nextlayer="latin", sp=SPECIAL_KEY),
         "CR": dict(id="K_ENTER", text="*Enter*", nextlayer="default", sp=SPECIAL_KEY),
-        "MENU": dict(id="K_LOPT", text="*Menu*", nextlayer="default", sp=SPECIAL_KEY),
+        "MENU": dict(id="K_LOPT", text="*Menu*", sp=SPECIAL_KEY),
     }
 
     def dictionary_for_key(self):
@@ -185,8 +187,9 @@ class SpecialKey(Key):
             id=settings["id"],
             text=settings["text"],
             sp=settings["sp"],
-            nextlayer=settings["nextlayer"],
         )
+        if "nextlayer" in settings:
+            key.update(nextlayer=settings["nextlayer"])
         if self.proportional_width > 1:
             key.update(width=self.effective_width)
 
