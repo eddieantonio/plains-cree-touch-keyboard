@@ -236,7 +236,7 @@ class BackspaceKey(Key):
             nextlayer = "default"
         elif mode == 'CwV':
             # Delete the 'w' means we will be typing a CV syllabic
-            nextlayer = "{consonant}V"
+            nextlayer = f"{consonant}V"
         else:
             raise ValueError(f"Don't know how to handle {mode} {consonant}")
 
