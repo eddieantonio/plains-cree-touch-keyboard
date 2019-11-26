@@ -9,6 +9,6 @@ all:
 
 include manifest.mk
 copy: all $(PACKAGE_FILES)
-	find $(PACKAGE_FILES) -print0 | cpio -p -0dv $(PACKAGE_DESTINATION)
+	find $(PACKAGE_FILES) -print0 | cpio -p -0udv $(PACKAGE_DESTINATION)
 
 .phony: all copy
