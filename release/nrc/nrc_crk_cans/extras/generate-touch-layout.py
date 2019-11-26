@@ -215,6 +215,48 @@ class SpecialKey(Key):
         return self.proportional_width * KEY_WIDTH + padding
 
 
+class BackspaceKey(Key):
+    """
+    The backspace key changes its nextlayer based on the current layer.
+    """
+
+    @classmethod
+    def label_matches(cls, tag):
+        return tag == 'BS'
+
+    def dictionary_for_key_with_mode(self, mode, consonant):
+        key = dict(id="K_BKSP", text="*BkSp*", sp=SPECIAL_KEY)
+
+        # The nextlayer depend on the current layer.
+        if mode == 'CV' and not consonant:
+            # Default layer: there should be no layer switching
+            nextlayer = None
+        elif mode == 'CV':
+            # Deleting the final means we go back to the default.
+            nextlayer = "default"
+        elif mode == 'CwV':
+            # Delete the 'w' means we will be typing a CV syllabic
+            nextlayer = "{consonant}V"
+        else:
+            raise ValueError(f"Don't know how to handle {mode} {consonant}")
+
+        if nextlayer is not None:
+            key.update(nextlayer=nextlayer)
+
+        return key
+
+    @property
+    def effective_width(self):
+        """
+        The width of the key taking the proportional width and default padding
+        into account.
+
+        This EXCLUDES the current key's padding.
+        """
+        padding = (self.proportional_width - 1) * PADDING_BETWEEN
+        return self.proportional_width * KEY_WIDTH + padding
+
+
 class CombiningConsonantKey(Key):
     """
     A consonant key that places the touch keyboard into a CV layer.
@@ -287,6 +329,7 @@ def parse_ascii_layout(layout: str) -> list:
                 CombiningConsonantKey,
                 VowelKey,
                 PeriodKey,
+                BackspaceKey,
                 SpecialKey,
                 Key,
             ):
