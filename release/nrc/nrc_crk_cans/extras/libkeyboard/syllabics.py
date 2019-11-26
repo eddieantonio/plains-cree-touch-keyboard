@@ -54,6 +54,8 @@ class Syllabic(NamedTuple):
                 return "vowel"
             else:
                 return "consonant"
+        else if self.sro == "hk":
+            return "consonant"
         else:
             return "syllable"
 
