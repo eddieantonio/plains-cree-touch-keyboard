@@ -231,8 +231,11 @@ class BackspaceKey(Key):
         if mode == 'CV' and not consonant:
             # Default layer: there should be no layer switching
             nextlayer = None
-        elif mode == 'CV':
+        elif mode == 'CV' or (mode == 'CwV' and not consonant):
             # Deleting the final means we go back to the default.
+            nextlayer = "default"
+        elif mode == 'CwV' and not consonant:
+            # wV layer: should go back to default!
             nextlayer = "default"
         elif mode == 'CwV':
             # Delete the 'w' means we will be typing a CV syllabic
