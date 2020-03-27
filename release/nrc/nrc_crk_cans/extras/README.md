@@ -29,7 +29,7 @@ If you don't have `make`, you can run:
 Copying
 -------
 
-Copyright © 2019 Eddie Antonio Santos of the National Research Council
+Copyright © 2019, 2020 Eddie Antonio Santos of the National Research Council
 Canada <Eddie.Santos@nrc-crnc.gc.ca>.
 
 This code is distributed under the terms of the [Mozilla Public License

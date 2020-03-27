@@ -23,12 +23,11 @@
       <ID>id_42283670a0f70443682146e342beda3a</ID>
       <Filename>nrc_crk_cans.kps</Filename>
       <Filepath>source\nrc_crk_cans.kps</Filepath>
-      <FileVersion>1.0.1</FileVersion>
+      <FileVersion></FileVersion>
       <FileType>.kps</FileType>
       <Details>
         <Name>ᓀᐦᐃᔭᐍᐏᐣ (Cree Syllabics)</Name>
-        <Copyright>© 2019 National Research Council Canada</Copyright>
-        <Version>1.0.1</Version>
+        <Copyright>© 2019, 2020 National Research Council Canada</Copyright>
       </Details>
     </File>
     <File>

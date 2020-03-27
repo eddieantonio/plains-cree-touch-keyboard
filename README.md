@@ -9,6 +9,6 @@ generator. See the code generator in **release/nrc/nrc_crk_cans/extras**.
 COPYING
 -------
 
-Keyboard (C) 2019 National Research Council Canada. Released under the MIT license.
+Keyboard (C) 2019, 2020 National Research Council Canada. Released under the MIT license.
 
-Code generator (c) 2019 National Research Council Canada. Released under the MPL-2.0 license.
+Code generator (c) 2019, 2020 National Research Council Canada. Released under the MPL-2.0 license.
