@@ -21,7 +21,7 @@ from libkeyboard.syllabics import SYLLABICS
 
 # The version number:
 name = "Cree Syllabics"
-version = f"1.0.1"
+version = f"1.1.0"
 
 
 parser = argparse.ArgumentParser()
