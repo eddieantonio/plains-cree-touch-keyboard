@@ -6,7 +6,7 @@ The keyboard layers for
 
 """
 
-SYLLABICS_KEY = {"id": "K_SCROLL", "text": "ᓀᐦᐃᔭᐤ", "nextlayer": "default"}
+SYLLABICS_KEY = {"id": "K_SCROLL", "text": "ᓀᐦᐃᔭᐤ", "nextlayer": "default", "sp": "1"}
 WIDE_SYLLABICS_KEY = {**SYLLABICS_KEY, "width": "150"}
 
 NUMERIC_LAYERS = [
@@ -85,11 +85,11 @@ NUMERIC_LAYERS = [
                         "nextlayer": "latin",
                     },
                     {
-                        "id": "K_LBRKT",
-                        "text": "[",
+                        "id": "U_00AB",
+                        "text": "«",
                         "pad": "",
                         "sk": [
-                            {"id": "U_00AB", "text": "«"},
+                            {"id": "K_LBRKT", "text": "["},
                             {"id": "K_COMMA", "text": "<", "layer": "shift"},
                             {"id": "K_LBRKT", "text": "{", "layer": "shift"},
                         ],
@@ -97,10 +97,10 @@ NUMERIC_LAYERS = [
                     {"id": "K_9", "text": "(", "layer": "shift"},
                     {"id": "K_0", "text": ")", "layer": "shift"},
                     {
-                        "id": "K_RBRKT",
-                        "text": "]",
+                        "id": "U_00BB",
+                        "text": "»",
                         "sk": [
-                            {"id": "U_00BB", "text": "»"},
+                            {"id": "K_RBRKT", "text": "]"},
                             {"id": "K_PERIOD", "text": ">", "layer": "shift"},
                             {"id": "K_RBRKT", "text": "}", "layer": "shift"},
                         ],
