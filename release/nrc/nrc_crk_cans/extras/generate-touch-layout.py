@@ -150,11 +150,20 @@ class PeriodKey(Key):
         return {
             "id": "U_166E",
             "text": "᙮",
+            # The most useful punctuation:s
             "sk": [
-                {"text": ",", "id": "U_002C"},
-                {"text": ".", "id": "U_002E"},
-                {"text": '"', "id": "U_0022"},
+                # Swiping all the way to the left inputs the question mark
                 {"text": "?", "id": "U_003F"},
+                # Open quote
+                {"text": "«", "id": "U_00AB"},
+                # Is the comma ever used?
+                {"text": ",", "id": "U_002C"},
+                # Close quote -- to prevent errors, space it AWAY from the opening quote
+                {"text": "»", "id": "U_00BB"},
+                # This is typically the default selected key on long-press;
+                # Make this the OTHER full-stop, in case people are missing it.
+                {"text": ".", "id": "U_002E"},
+                # Swiping all the way to the right inputs the exclamation mark
                 {"text": "!", "id": "U_0021"},
             ],
             "nextlayer": "default",
