@@ -154,7 +154,7 @@ class PeriodKey(Key):
                 {"text": ",", "id": "U_002C"},
                 {"text": ".", "id": "U_002E"},
                 {"text": '"', "id": "U_0022"},
-                "text": "?", "id": "U_003F"},
+                {"text": "?", "id": "U_003F"},
                 {"text": "!", "id": "U_0021"},
             ],
             "nextlayer": "default",
@@ -173,7 +173,7 @@ class SpecialKey(Key):
         "BS": dict(id="K_BKSP", text="*BkSp*", sp=SPECIAL_KEY),
         "123": dict(id="K_NUMLOCK", text="*123*", nextlayer="numeric", sp=SPECIAL_KEY),
         "NNBSP": dict(
-            id="U_202F", text="", width=2, nextlayer="default", sp=NORMAL_KEY
+            id="U_202F", text="", width=2, nextlayer="default", sp=SPECIAL_KEY
         ),
         "ABC": dict(id="K_UPPER", text="*ABC*", nextlayer="latin", sp=SPECIAL_KEY),
         "CR": dict(id="K_ENTER", text="*Enter*", nextlayer="default", sp=SPECIAL_KEY),
@@ -182,11 +182,7 @@ class SpecialKey(Key):
 
     def dictionary_for_key(self):
         settings = self.SETTINGS[self.label]
-        key = dict(
-            id=settings["id"],
-            text=settings["text"],
-            sp=settings["sp"],
-        )
+        key = dict(id=settings["id"], text=settings["text"], sp=settings["sp"])
         if "nextlayer" in settings:
             key.update(nextlayer=settings["nextlayer"])
         if self.proportional_width > 1:
@@ -221,22 +217,22 @@ class BackspaceKey(Key):
 
     @classmethod
     def label_matches(cls, tag):
-        return tag == 'BS'
+        return tag == "BS"
 
     def dictionary_for_key_with_mode(self, mode, consonant):
         key = dict(id="K_BKSP", text="*BkSp*", sp=SPECIAL_KEY)
 
         # The nextlayer depend on the current layer.
-        if mode == 'CV' and not consonant:
+        if mode == "CV" and not consonant:
             # Default layer: there should be no layer switching
             nextlayer = None
-        elif mode == 'CV' or (mode == 'CwV' and not consonant):
+        elif mode == "CV" or (mode == "CwV" and not consonant):
             # Deleting the final means we go back to the default.
             nextlayer = "default"
-        elif mode == 'CwV' and not consonant:
+        elif mode == "CwV" and not consonant:
             # wV layer: should go back to default!
             nextlayer = "default"
-        elif mode == 'CwV':
+        elif mode == "CwV":
             # Delete the 'w' means we will be typing a CV syllabic
             nextlayer = f"{consonant}V"
         else:
