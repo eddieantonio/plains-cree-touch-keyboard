@@ -31,14 +31,45 @@ NUMERIC_LAYERS = [
             {
                 "id": 2,
                 "key": [
+                    # Delaney and I came up with the following keys that SHOULD be easily accessible:
+                    #  $ -- for money
+                    #  @ -- for email addresses and for @ing people
+                    #  # -- for hashtags/social media
+                    #  % -- for percentages
+                    #  «/» -- for quotations
+                    #  / -- for division
+                    #  + -- for addition (can be confused with y final)
+                    #  - -- for subtraction (can be confused with c final)
+                    #  * -- for multiplication
+                    #  = -- for equations
+                    #
+                    # N.B.: Delaney is a mathematician...
+                    #
+                    # Dubious keys:
+                    #  " -- use angle quotes instead (can be confused for h)
+                    #  \ -- Only useful for coding?
+                    #  ` -- Only useful for coding?
+                    #  ~ -- Only useful for coding?
+                    #  | -- Only useful for coding?
+                    #  ^ -- Only useful for coding?
+                    #  ; -- Not used in syllabics -- too many dots
+                    #  : -- Not used in syllabics -- too many dots
+                    #  ' -- Not used in syllabics (can be confused for p final)
+                    #
+                    # On the fence:
+                    #  _ -- user names???
+                    #  & -- just write êkwa instead?
                     {"id": "K_4", "text": "$", "pad": "50", "layer": "shift"},
                     {"id": "K_2", "text": "@", "layer": "shift"},
                     {"id": "K_3", "text": "#", "layer": "shift"},
                     {"id": "K_5", "text": "%", "layer": "shift"},
+                    # TODO: remove this?
                     {"id": "K_6", "text": "&", "layer": "shift"},
                     {"id": "K_HYPHEN", "text": "_", "layer": "shift"},
                     {"id": "K_EQUAL", "text": "=", "layer": "latin"},
+                    # TODO: remove this:
                     {"id": "K_BKSLASH", "text": "|", "layer": "shift"},
+                    # TODO: remove this:
                     {"id": "K_BKSLASH", "text": "\\", "layer": "latin"},
                     {"id": "T_new_228", "text": "", "width": "10", "sp": "10"},
                 ],
