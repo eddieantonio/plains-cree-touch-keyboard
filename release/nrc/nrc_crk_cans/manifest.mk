@@ -11,4 +11,4 @@ PACKAGE_FILES = HISTORY.md \
 				source/nrc_crk_cans.kps \
 				source/readme.htm \
 				source/welcome/welcome.htm \
-				$(wildcardsource/welcome/ *.jpg)
+				$(wildcard source/welcome/*.jpg)
