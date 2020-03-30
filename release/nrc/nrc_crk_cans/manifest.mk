@@ -6,9 +6,11 @@ PACKAGE_FILES = HISTORY.md \
 				nrc_crk_cans.kpj \
 				source/help/nrc_crk_cans.php \
 				$(wildcard source/help/*.jpg) \
+				$(wildcard source/help/*.png) \
 				source/nrc_crk_cans.keyman-touch-layout \
 				source/nrc_crk_cans.kmn \
 				source/nrc_crk_cans.kps \
 				source/readme.htm \
 				source/welcome/welcome.htm \
-				$(wildcard source/welcome/*.jpg)
+				$(wildcard source/welcome/*.jpg) \
+				$(wildcard source/welcome/*.png)
