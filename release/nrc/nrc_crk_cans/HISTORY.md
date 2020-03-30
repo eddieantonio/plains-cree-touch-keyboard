@@ -6,9 +6,10 @@ nrc_crk_cans Keyboard Change History
  - Change: numeric layer layout (digits and symbols) completely revamped
  - Added <kbd>«</kbd> and <kbd>»</kbd> as preferred quotation mark punctuation 
  - Change: order of punctuation long-press (subkey) menu
-    - was `,."᐀?!`; now `?«,».!`
+    - was <kbd>,</kbd><kbd>.</kbd><kbd>"</kbd><kbd>᐀</kbd><kbd>?</kbd><kbd>!</kbd>
+    - now <kbd>?</kbd><kbd>«</kbd><kbd>,</kbd><kbd>»</kbd><kbd>.</kbd><kbd>!</kbd>
  - Add: <kbd>,</kbd>, <kbd>!</kbd>, <kbd>?</kbd> keys to numeric layer
- - Remove: <kbd>᐀</kbd> key (U+1400 `CANADIAN SYLLABICS HYPHEN`); unused in Western Cree syllabics
+ - Remove: <kbd>᐀</kbd> key (U+1400 `CANADIAN SYLLABICS HYPHEN`) — unused in Western Cree syllabics
  - Remove: <kbd>|</kbd> and <kbd>\\</kbd> keys
  - Change: Move bracket long-press (subkey) menu to left and right parentheses keys in numeric layer
  - Fix: NNBSP (half spacebar) now correctly labelled as a special key
