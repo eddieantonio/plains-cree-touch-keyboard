@@ -64,9 +64,9 @@ NUMERIC_LAYERS = [
                     #  & -- just write êkwa instead?
                     {"id": "K_2", "text": "@", "layer": "shift"},
                     {"id": "K_3", "text": "#", "layer": "shift"},
-                    {"id": "K_4", "text": "$", "pad": "50", "layer": "shift"},
+                    {"id": "K_4", "text": "$", "layer": "shift"},
                     # TODO: remove this?
-                    {"id": "K_6", "text": "&", "layer": "shift"},
+                    {"id": "K_7", "text": "&", "layer": "shift"},
                     {"id": "K_HYPHEN", "text": "_", "layer": "shift"},
                     {"id": "K_HYPHEN", "text": "-"},
                     {"id": "K_9", "text": "(", "layer": "shift"},
