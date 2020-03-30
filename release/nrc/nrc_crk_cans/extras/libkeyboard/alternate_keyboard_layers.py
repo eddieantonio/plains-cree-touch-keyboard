@@ -45,6 +45,9 @@ NUMERIC_LAYERS = [
                     #
                     # N.B.: Delaney is a mathematician...
                     #
+                    # Arden says the comma is essential:
+                    #  , -- separating clauses
+                    #
                     # Dubious keys:
                     #  " -- use angle quotes instead (can be confused for h)
                     #  \ -- Only useful for coding?
@@ -67,8 +70,7 @@ NUMERIC_LAYERS = [
                     {"id": "K_6", "text": "&", "layer": "shift"},
                     {"id": "K_HYPHEN", "text": "_", "layer": "shift"},
                     {"id": "K_EQUAL", "text": "=", "layer": "latin"},
-                    # TODO: remove this:
-                    {"id": "K_BKSLASH", "text": "|", "layer": "shift"},
+                    {"id": "K_COMMA", "text": ","},
                     # TODO: remove this:
                     {"id": "K_BKSLASH", "text": "\\", "layer": "latin"},
                     {"id": "T_new_228", "text": "", "width": "10", "sp": "10"},

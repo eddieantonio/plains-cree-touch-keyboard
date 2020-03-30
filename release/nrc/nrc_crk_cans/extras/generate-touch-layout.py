@@ -11,11 +11,10 @@ import json
 import re
 import sys
 
-from libkeyboard.ioutils import setup_output
 from libkeyboard.alternate_keyboard_layers import LATIN_LAYERS, NUMERIC_LAYERS
+from libkeyboard.ioutils import setup_output
 from libkeyboard.plains_cree_constants import COMBINING_CONSONANTS, VOWELS
 from libkeyboard.syllabics import SYLLABICS
-
 
 # For guidelines on how to create a comfortable layout, I used two sources of
 # data:
@@ -156,7 +155,7 @@ class PeriodKey(Key):
                 {"text": "?", "id": "U_003F"},
                 # Open quote
                 {"text": "«", "id": "U_00AB"},
-                # Is the comma ever used?
+                # Arden says the comma is essential! [Ogg, Arden. Personal Communication. 2020-03-28].
                 {"text": ",", "id": "U_002C"},
                 # Close quote -- to prevent errors, space it AWAY from the opening quote
                 {"text": "»", "id": "U_00BB"},
