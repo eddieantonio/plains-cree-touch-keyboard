@@ -62,18 +62,17 @@ NUMERIC_LAYERS = [
                     # On the fence:
                     #  _ -- user names???
                     #  & -- just write êkwa instead?
-                    {"id": "K_4", "text": "$", "pad": "50", "layer": "shift"},
                     {"id": "K_2", "text": "@", "layer": "shift"},
                     {"id": "K_3", "text": "#", "layer": "shift"},
-                    {"id": "K_5", "text": "%", "layer": "shift"},
+                    {"id": "K_4", "text": "$", "pad": "50", "layer": "shift"},
                     # TODO: remove this?
                     {"id": "K_6", "text": "&", "layer": "shift"},
                     {"id": "K_HYPHEN", "text": "_", "layer": "shift"},
+                    {"id": "K_HYPHEN", "text": "-"},
+                    {"id": "K_9", "text": "(", "layer": "shift"},
+                    {"id": "K_0", "text": ")", "layer": "shift"},
                     {"id": "K_EQUAL", "text": "=", "layer": "latin"},
-                    {"id": "K_COMMA", "text": ","},
-                    # TODO: remove this:
-                    {"id": "K_BKSLASH", "text": "\\", "layer": "latin"},
-                    {"id": "T_new_228", "text": "", "width": "10", "sp": "10"},
+                    {"id": "K_5", "text": "%", "layer": "shift"},
                 ],
             },
             {
@@ -96,8 +95,7 @@ NUMERIC_LAYERS = [
                             {"id": "K_LBRKT", "text": "{", "layer": "shift"},
                         ],
                     },
-                    {"id": "K_9", "text": "(", "layer": "shift"},
-                    {"id": "K_0", "text": ")", "layer": "shift"},
+                    {"id": "K_8", "text": "*", "layer": "shift"},
                     {
                         "id": "U_00BB",
                         "text": "»",
@@ -107,10 +105,11 @@ NUMERIC_LAYERS = [
                             {"id": "K_RBRKT", "text": "}", "layer": "shift"},
                         ],
                     },
-                    {"id": "K_EQUAL", "text": "+", "layer": "shift"},
-                    {"id": "K_HYPHEN", "text": "-"},
-                    {"id": "K_8", "text": "*", "layer": "shift"},
+                    {"id": "K_COMMA", "text": ","},
                     {"id": "K_SLASH", "text": "/"},
+                    {"id": "K_1", "text": "!", "layer": "shift"},
+                    {"id": "K_SLASH", "text": "?", "layer": "shift"},
+                    {"id": "K_EQUAL", "text": "+", "layer": "shift"},
                     {"id": "K_BKSP", "text": "*BkSp*", "width": "100", "sp": "1"},
                 ],
             },
