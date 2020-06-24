@@ -12,10 +12,9 @@ A mapping between SRO syllables and syllabics.
 """
 
 import csv
+from pathlib import Path
 from types import MappingProxyType
 from typing import NamedTuple
-from pathlib import Path
-
 
 __all__ = ["SYLLABICS"]
 here = Path(__file__).parent
@@ -92,6 +91,8 @@ def _parse_syllabics():
     with open(here / "syllabics.tsv", encoding="UTF-8") as syllabics_file:
         syllabics_tsv = csv.DictReader(syllabics_file, delimiter="\t")
         for row in syllabics_tsv:
+            if row["in.plains.cree"] != "TRUE":
+                continue
             syllabic = Syllabic.from_tsv(row)
             assert syllabic.sro not in syllabics
             syllabics[syllabic.sro] = syllabic
